@@ -12,19 +12,25 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.2.5</version>
+            <version>2.2.7</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.2.5</version>
+            <version>2.2.7</version>
         </dependency>
+        
+        <dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.6.0</version>
+		</dependency>
     </dependencies>
 
     <build>
         <plugins>
             <!-- JAXB xjc plugin that invokes the xjc compiler to compile XML schema into Java classes.-->
-            <plugin>
+            <!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <executions>
@@ -35,14 +41,27 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- The schema directory or xsd files. -->
                     <schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
-                    <!-- The package in which the source files will be generated. -->
                     <packageName>com.ips.payroll.balance.jaxb</packageName>
-                    <!-- The working directory to create the generated java source files. -->
                     <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 </configuration>
-            </plugin>
+            </plugin -->
+            
+            <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xmlbeans-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xmlbeans</goal>
+						</goals>
+					</execution>
+				</executions>
+				<inherited>true</inherited>
+				<configuration>
+					<schemaDirectory>src/main/xsd</schemaDirectory>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
