@@ -30,7 +30,7 @@
     <build>
         <plugins>
             <!-- JAXB xjc plugin that invokes the xjc compiler to compile XML schema into Java classes.-->
-            <!-- plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <executions>
@@ -42,10 +42,9 @@
                 </executions>
                 <configuration>
                     <schemaDirectory>${basedir}/src/main/resources</schemaDirectory>
-                    <packageName>com.ips.payroll.balance.jaxb</packageName>
                     <outputDirectory>${basedir}/src/main/java</outputDirectory>
                 </configuration>
-            </plugin -->
+            </plugin>
             
             <plugin>
 				<groupId>org.codehaus.mojo</groupId>
