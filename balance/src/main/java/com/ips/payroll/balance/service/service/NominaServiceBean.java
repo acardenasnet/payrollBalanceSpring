@@ -60,7 +60,7 @@ public class NominaServiceBean
 
 //            Nomina myNomina = (Nomina) u.unmarshal(myComprobante.getComplemento().getAny().get(0).toString());
 
-            LOG.debug("Nomina {}", ((Nomina) myComprobante.getComplemento().getAny().get(0)).getPercepciones().getTotalExento().toPlainString());
+            LOG.debug("Nomina {}", ((Nomina) myComprobante.getComplemento().getAny().get(0)).getPercepciones().getTotalGravado().toPlainString());
 
             ComprobanteDocument myDocument = ComprobanteDocument.Factory.parse(myFile);
 
