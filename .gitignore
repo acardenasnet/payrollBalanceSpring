@@ -8,3 +8,4 @@ release.properties
 *.project
 *.classpath
 .settings/
+protocol/src/main/java/mx/gob/sat/*
