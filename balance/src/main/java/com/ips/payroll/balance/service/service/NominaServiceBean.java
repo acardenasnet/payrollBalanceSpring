@@ -1,24 +1,25 @@
 package com.ips.payroll.balance.service.service;
 
-import com.ips.payroll.balance.service.api.NominaService;
-import mx.gob.sat.cfd._3.Comprobante;
-import mx.gob.sat.cfd.x3.ComprobanteDocument;
-import mx.gob.sat.nomina.Nomina;
-import org.apache.xmlbeans.XmlCursor;
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
+
+import mx.gob.sat.cfd._3.Comprobante;
+import mx.gob.sat.nomina.Nomina;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import au.com.bytecode.opencsv.CSVWriter;
+
+import com.ips.payroll.balance.service.api.NominaService;
 
 /**
  * Created by acardenas on 6/23/14.
@@ -29,17 +30,10 @@ public class NominaServiceBean
 {
     private static final Logger LOG = LoggerFactory.getLogger(NominaServiceBean.class);
 
-    private Collection<XmlHandlerAbstract<?>> handlers =
-            new HashSet<XmlHandlerAbstract<?>>();
 
     private static final javax.xml.namespace.QName NOMINA$0 =
             new javax.xml.namespace.QName("http://www.sat.gob.mx/nomina", "Nomina");
 
-    public NominaServiceBean()
-    {
-        handlers.add(new NominaHandler());
-        handlers.add(new ComprobanteHandler());
-    }
 
     @Override
     public void createNomina()
@@ -58,64 +52,36 @@ public class NominaServiceBean
             LOG.debug("Complemento {}", myComprobante.getComplemento().getAny().get(0));
 
 
-//            Nomina myNomina = (Nomina) u.unmarshal(myComprobante.getComplemento().getAny().get(0).toString());
+            Nomina myNomina = (Nomina) myComprobante.getComplemento().getAny().get(0);
 
-            LOG.debug("Nomina {}", ((Nomina) myComprobante.getComplemento().getAny().get(0)).getPercepciones().getTotalExento().toPlainString());
+            LOG.debug("Nomina {}", myNomina.getPercepciones().getTotalGravado().toPlainString());
+            
+            CSVWriter myCsvWriter = new CSVWriter(new FileWriter("output.csv"));
+            
+            List<String[]> myRecords = new ArrayList<String[]>();
+            
+            String[] myRecord = {myNomina.getNumEmpleado(), 
+            		myNomina.getFechaPago().toGregorianCalendar().toString(),
+            		};
+            
+            myRecords.add(myRecord);
+            
+            myCsvWriter.writeAll(myRecords);
+            myCsvWriter.flush();
+            
+            myCsvWriter.close();
 
-            ComprobanteDocument myDocument = ComprobanteDocument.Factory.parse(myFile);
 
-            LOG.debug("XMLBEANS {}", editExistingDocWithSelectChildren(myDocument));
-//            editExistingDocWithSelectChildren(myDocument);
-            LOG.debug("XMLBEANS {}", myDocument.getComprobante().getComplemento());
-
-
-/*
-            boolean myHandled = false;
-            for (XmlHandlerAbstract myHandler : handlers)
-            {
-
-                Class<?> myHandledClass = myHandler.handles();
-                if (myHandledClass.isInstance(myDocument))
-                {
-                    myHandler.handle(myDocument);
-                    myHandled = true;
-                    break;
-                }
-            }*/
-
-        } catch (XmlException e)
+        } 
+        catch (JAXBException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e)
+            LOG.error("Unable to Parse XML ", e);
+        } 
+        catch (IOException e) 
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JAXBException e)
-        {
-            e.printStackTrace();
-        }
+        	LOG.error("Unable to Write CSV ", e);
+		}
 
     }
 
-    public boolean editExistingDocWithSelectChildren(ComprobanteDocument rootDoc)
-    {
-        String namespaceUri = "http://xmlbeans.apache.org/samples/any";
-        ComprobanteDocument.Comprobante root = rootDoc.getComprobante();
-
-        // Select the <anyfoo> children of <root>.
-        XmlObject[] stringElements =
-                root.selectChildren(NOMINA$0);
-
-        // If the element is there, replace it with another element.
-        if (stringElements.length > 0)
-        {
-            XmlCursor editCursor = stringElements[0].newCursor();
-            editCursor.removeXml();
-            editCursor.beginElement(NOMINA$0);
-            editCursor.insertChars("some other text");
-            editCursor.dispose();
-        }
-        return rootDoc.validate();
-    }
 }

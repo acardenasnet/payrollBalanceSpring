@@ -24,7 +24,12 @@
             <groupId>com.ips.payroll.balance</groupId>
             <artifactId>protocol</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+	    </dependency>
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
@@ -203,6 +208,27 @@
             <artifactId>jsp-2.1-jetty</artifactId>
             <version>6.1.26</version>
         </dependency>
+        
+        		<dependency>
+		<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2</version>
+		</dependency>
+	    <dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+        <dependency>
+		<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
+        <dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
     </dependencies>
 
     <build>
