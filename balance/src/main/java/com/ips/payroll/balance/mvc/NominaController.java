@@ -16,14 +16,10 @@ public class NominaController
 {
     private static final Logger LOG = LoggerFactory.getLogger(NominaController.class);
 
-    @Autowired
-    private NominaService nominaService;
-
     @RequestMapping("/")
     public String test()
     {
         LOG.info("TST");
-       nominaService.createNomina();
        return "index";
     }
 }
