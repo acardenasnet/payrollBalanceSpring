@@ -8,6 +8,7 @@ public class FileMeta {
 	private String fileName;
 	private String fileSize;
 	private String fileType;
+	private boolean success;
 
 	private byte[] bytes;
 
@@ -35,4 +36,11 @@ public class FileMeta {
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
 	}
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+	
 }

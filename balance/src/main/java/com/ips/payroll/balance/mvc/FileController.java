@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping("/controller")
-@Scope(value = "session")
+@Scope(value = "request")
 public class FileController
 {
     private static final Logger LOG = LoggerFactory.getLogger(FileController.class);
@@ -84,9 +84,11 @@ public class FileController
                 FileCopyUtils.copy(myMultipartFile.getBytes(), new FileOutputStream("files/" + myMultipartFile.getOriginalFilename()));
 
                 LOG.debug(csvService.convertToCsv(nominaService.createNomina(myMultipartFile.getInputStream())));
+                fileMeta.setSuccess(true);
             } catch (IOException e)
             {
-                LOG.error(e.getCause().getMessage(), e);
+                LOG.error("Exception IOException", e);
+                fileMeta.setSuccess(false);
             }
             //2.4 add to files
 

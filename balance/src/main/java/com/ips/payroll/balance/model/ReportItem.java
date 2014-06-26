@@ -2,33 +2,31 @@ package com.ips.payroll.balance.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
-import com.ips.payroll.balance.entity.Deducciones;
-import com.ips.payroll.balance.entity.HorasExtras;
-import com.ips.payroll.balance.entity.Incapacidades;
-import com.ips.payroll.balance.entity.Percepciones;
+import com.ips.payroll.balance.model.enums.PercepcionType;
 
 public class ReportItem {
 
-	private Percepciones percepciones;
-	private Deducciones deducciones;
-	private Incapacidades incapacidades;
-	private HorasExtras horasExtras;
+	private Map<PercepcionType, Percepcion> percepciones;
+//	private Map<String, Deduccion> deducciones;
+//	private Incapacidades incapacidades;
+//	private HorasExtras horasExtras;
 	private String version;
 	private String registroPatronal;
 	private String numEmpleado;
 	private String curp;
 	private int tipoRegimen;
 	private String numSeguridadSocial;
-	private Calendar fechaPago;
-	private Calendar fechaInicialPago;
-	private Calendar fechaFinalPago;
+	private Date fechaPago;
+	private Date fechaInicialPago;
+	private Date fechaFinalPago;
 	private BigDecimal numDiasPagados;
 	private String departamento;
 	private BigInteger clabe;
 	private Integer banco;
-	private Calendar fechaInicioRelLaboral;
+	private Date fechaInicioRelLaboral;
 	private Integer antiguedad;
 	private String puesto;
 	private String tipoContrato;
@@ -38,30 +36,18 @@ public class ReportItem {
 	private Integer riesgoPuesto;
 	private BigDecimal salarioDiarioIntegrado;
 	
-	public Percepciones getPercepciones() {
+	public Map<PercepcionType, Percepcion> getPercepciones() {
 		return percepciones;
 	}
-	public void setPercepciones(Percepciones percepciones) {
+	public void setPercepciones(Map<PercepcionType, Percepcion> percepciones) {
 		this.percepciones = percepciones;
 	}
-	public Deducciones getDeducciones() {
-		return deducciones;
-	}
-	public void setDeducciones(Deducciones deducciones) {
-		this.deducciones = deducciones;
-	}
-	public Incapacidades getIncapacidades() {
-		return incapacidades;
-	}
-	public void setIncapacidades(Incapacidades incapacidades) {
-		this.incapacidades = incapacidades;
-	}
-	public HorasExtras getHorasExtras() {
-		return horasExtras;
-	}
-	public void setHorasExtras(HorasExtras horasExtras) {
-		this.horasExtras = horasExtras;
-	}
+//	public Map<String, Deduccion> getDeducciones() {
+//		return deducciones;
+//	}
+//	public void setDeducciones(Map<String, Deduccion> deducciones) {
+//		this.deducciones = deducciones;
+//	}
 	public String getVersion() {
 		return version;
 	}
@@ -98,22 +84,22 @@ public class ReportItem {
 	public void setNumSeguridadSocial(String numSeguridadSocial) {
 		this.numSeguridadSocial = numSeguridadSocial;
 	}
-	public Calendar getFechaPago() {
+	public Date getFechaPago() {
 		return fechaPago;
 	}
-	public void setFechaPago(Calendar fechaPago) {
+	public void setFechaPago(Date fechaPago) {
 		this.fechaPago = fechaPago;
 	}
-	public Calendar getFechaInicialPago() {
+	public Date getFechaInicialPago() {
 		return fechaInicialPago;
 	}
-	public void setFechaInicialPago(Calendar fechaInicialPago) {
+	public void setFechaInicialPago(Date fechaInicialPago) {
 		this.fechaInicialPago = fechaInicialPago;
 	}
-	public Calendar getFechaFinalPago() {
+	public Date getFechaFinalPago() {
 		return fechaFinalPago;
 	}
-	public void setFechaFinalPago(Calendar fechaFinalPago) {
+	public void setFechaFinalPago(Date fechaFinalPago) {
 		this.fechaFinalPago = fechaFinalPago;
 	}
 	public BigDecimal getNumDiasPagados() {
@@ -140,10 +126,10 @@ public class ReportItem {
 	public void setBanco(Integer banco) {
 		this.banco = banco;
 	}
-	public Calendar getFechaInicioRelLaboral() {
+	public Date getFechaInicioRelLaboral() {
 		return fechaInicioRelLaboral;
 	}
-	public void setFechaInicioRelLaboral(Calendar fechaInicioRelLaboral) {
+	public void setFechaInicioRelLaboral(Date fechaInicioRelLaboral) {
 		this.fechaInicioRelLaboral = fechaInicioRelLaboral;
 	}
 	public Integer getAntiguedad() {

@@ -1,26 +1,25 @@
 package com.ips.payroll.balance.service.service;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import com.ips.payroll.balance.model.ReportItem;
 import mx.gob.sat.cfd._3.Comprobante;
 import mx.gob.sat.nomina.Nomina;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import au.com.bytecode.opencsv.CSVWriter;
-
+import com.ips.payroll.balance.model.Percepcion;
+import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.model.enums.PercepcionType;
 import com.ips.payroll.balance.service.api.NominaService;
 
 /**
@@ -32,10 +31,13 @@ public class NominaServiceBean
 {
     private static final Logger LOG = LoggerFactory.getLogger(NominaServiceBean.class);
 
-
-    private static final javax.xml.namespace.QName NOMINA$0 =
-            new javax.xml.namespace.QName("http://www.sat.gob.mx/nomina", "Nomina");
-
+    private ConversionService conversionService;
+    
+    @Autowired
+    public NominaServiceBean(ConversionService conversionService) 
+    {
+        this.conversionService = conversionService;
+    }
 
     @Override
     public ReportItem createNomina(InputStream anInputStream)
@@ -52,7 +54,6 @@ public class NominaServiceBean
 
             LOG.debug("Complemento {}", myComprobante.getReceptor().getNombre());
 
-            LOG.debug("Complemento {}", myComprobante.getComplemento().getAny().get(0));
 
             Nomina myNomina = null;
             List<Object> myObjectList = myComprobante.getComplemento().getAny();
@@ -69,33 +70,21 @@ public class NominaServiceBean
                 throw new RuntimeException("Nomina not Match");
             }
 
-            LOG.debug("Nomina {}", myNomina.getPercepciones().getTotalGravado().toPlainString());
+            myReturn = conversionService.convert(myNomina, ReportItem.class);
+			Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(myNomina.getPercepciones(), Map.class);
+            
+            
+            myReturn.setPercepciones(myPercepciones);
 
-            myReturn.setNumSeguridadSocial(myNomina.getNumSeguridadSocial());
-            myReturn.setCurp(myNomina.getCURP());
-
-            CSVWriter myCsvWriter = new CSVWriter(new FileWriter("output.csv"));
-
-            List<String[]> myRecords = new ArrayList<String[]>();
-
-            String[] myRecord = {myNomina.getNumEmpleado(),
-                    myNomina.getFechaPago().toGregorianCalendar().toString(),
-            };
-
-            myRecords.add(myRecord);
-
-            myCsvWriter.writeAll(myRecords);
-            myCsvWriter.flush();
-
-            myCsvWriter.close();
+//            myReturn.setNumSeguridadSocial(myNomina.getNumSeguridadSocial());
+//            myReturn.setCurp(myNomina.getCURP());
+//            myReturn.setAntiguedad(myNomina.getAntiguedad());
+//            myReturn.setDeducciones(new Deducciones());
 
 
         } catch (JAXBException e)
         {
             LOG.error("Unable to Parse XML ", e);
-        } catch (IOException e)
-        {
-            LOG.error("Unable to Write CSV ", e);
         }
 
         return myReturn;
