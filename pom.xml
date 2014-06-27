@@ -13,4 +13,17 @@
         <module>protocol</module>
         <module>balance</module>
     </modules>
+
+    <build>
+        <plugins>
+              <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>2.11</version>
+            <configuration>
+              <configLocation>conf/checkstyle.xml</configLocation>
+            </configuration>
+          </plugin>
+                  </plugins>
+    </build>
 </project>
