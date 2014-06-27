@@ -33,5 +33,6 @@ $(function () {
 
         dropZone: $('#dropzone')
     });
+    
 
 });

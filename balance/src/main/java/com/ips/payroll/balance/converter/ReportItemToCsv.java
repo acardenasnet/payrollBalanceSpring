@@ -1,7 +1,8 @@
 package com.ips.payroll.balance.converter;
 
 import au.com.bytecode.opencsv.CSVWriter;
-import com.ips.payroll.balance.PropertyDescriptorComparator;
+
+import com.ips.payroll.balance.comparator.PropertyDescriptorComparator;
 import com.ips.payroll.balance.exceptions.BlunderException;
 import com.ips.payroll.balance.model.Deduccion;
 import com.ips.payroll.balance.model.HorasExtras;
@@ -11,6 +12,7 @@ import com.ips.payroll.balance.model.enums.DeduccionType;
 import com.ips.payroll.balance.model.enums.HorasExtrasType;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 import com.ips.payroll.balance.model.enums.PercepcionType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,17 +63,12 @@ public class ReportItemToCsv
                 if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                         type.isAssignableFrom(PercepcionType.class))
                 {
-                    LOG.debug("myPropertyDescriptor = {}", myPropertyDescriptor.getReadMethod().getGenericReturnType());
-
-                    //LOG.debug("class = {}", genericReturnType.getActualTypeArguments());
 
                     for (PercepcionType myPercepcionType : PercepcionType.values())
                     {
                         Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                         Map<PercepcionType, Percepcion> myMap = (Map<PercepcionType, Percepcion>) value;
-                        LOG.debug(myPercepcionType.name() + myMap);
                         Percepcion myPercepcion = myMap.get(myPercepcionType);
-                        LOG.debug("{}", myPercepcion);
                         if (myMap.get(myPercepcionType) == null)
                         {
                             values.add("");
@@ -84,15 +81,12 @@ public class ReportItemToCsv
                 } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                         type.isAssignableFrom(DeduccionType.class))
                 {
-                    LOG.debug("myPropertyDescriptor = {}", myPropertyDescriptor.getReadMethod().getGenericReturnType());
 
                     for (DeduccionType myDeduccionType : DeduccionType.values())
                     {
                         Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                         Map<DeduccionType, Deduccion> myMap = (Map<DeduccionType, Deduccion>) value;
-                        LOG.debug(myDeduccionType.name() + myMap);
                         Deduccion myDeduccion = myMap.get(myDeduccionType);
-                        LOG.debug("{}", myDeduccion);
                         if (myMap.get(myDeduccionType) == null)
                         {
                             values.add("");
@@ -166,9 +160,7 @@ public class ReportItemToCsv
     protected List<PropertyDescriptor> resolvePropertyDescriptors(Class<?> beanClass, Class<?> stopClass)
     {
         List<PropertyDescriptor> myPropertyDescriptors = super.resolvePropertyDescriptors(beanClass, stopClass);
-        LOG.debug("Before Ordered {}", myPropertyDescriptors);
         Collections.sort(myPropertyDescriptors, new PropertyDescriptorComparator());
-        LOG.debug("After Ordered {}", myPropertyDescriptors);
 
         return myPropertyDescriptors;
     }

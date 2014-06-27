@@ -23,7 +23,9 @@
 
 <div id="download"/>
 <div style="width:500px;padding:20px">
-
+	<form name="frm_reset" action="rest/controller/get/reset" method="get">
+		<input id = "reset" type="submit" value="Reset">
+	</form>	
     <input id="fileupload" type="file" name="files[]" data-url="rest/controller/upload" multiple>
 
     <div id="dropzone" class="fade well">Drop files here</div>

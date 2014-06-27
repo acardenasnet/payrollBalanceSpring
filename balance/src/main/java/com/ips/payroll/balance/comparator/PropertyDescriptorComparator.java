@@ -1,4 +1,4 @@
-package com.ips.payroll.balance;
+package com.ips.payroll.balance.comparator;
 
 import java.beans.PropertyDescriptor;
 import java.util.Comparator;

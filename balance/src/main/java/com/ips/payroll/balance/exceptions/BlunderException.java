@@ -2,6 +2,8 @@ package com.ips.payroll.balance.exceptions;
 
 public class BlunderException extends RuntimeException {
 
+	private static final long serialVersionUID = 8752249436470017469L;
+
 	public BlunderException() {
 		// TODO Auto-generated constructor stub
 	}
