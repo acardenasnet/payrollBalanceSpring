@@ -1,14 +1,8 @@
 package com.ips.payroll.balance.mvc;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.ips.payroll.balance.service.api.CsvService;
 import com.ips.payroll.balance.service.api.NominaService;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 @Controller
 @RequestMapping("/controller")
@@ -51,9 +53,10 @@ public class FileController
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public
     @ResponseBody
-    LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response)
+    FileMetaResponse upload(MultipartHttpServletRequest request, HttpServletResponse response)
     {
 
+        FileMetaResponse myFileMetaResponse = new FileMetaResponse();
         //1. build an iterator
         Iterator<String> myIterator = request.getFileNames();
         MultipartFile myMultipartFile = null;
@@ -81,9 +84,21 @@ public class FileController
                 fileMeta.setBytes(myMultipartFile.getBytes());
 
                 // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)
-                FileCopyUtils.copy(myMultipartFile.getBytes(), new FileOutputStream("files/" + myMultipartFile.getOriginalFilename()));
+                //FileCopyUtils.copy(myMultipartFile.getBytes(), new FileOutputStream("files/" + myMultipartFile.getOriginalFilename()));
 
-                LOG.debug(csvService.convertToCsv(nominaService.createNomina(myMultipartFile.getInputStream())));
+                LOG.debug("Done !!");
+
+                byte[] myFileContent = csvService.convertToCsv(
+                        nominaService.createNomina(myMultipartFile.getInputStream()));
+                File myFile = File.createTempFile("nomina", ".csv");
+
+                FileOutputStream myFileOutputStream = new FileOutputStream(myFile);
+                myFileOutputStream.write(myFileContent);
+                myFileOutputStream.close();
+
+                byte[] myFileNameEncoded = Base64.encodeBase64(myFile.getAbsolutePath().getBytes());
+                LOG.debug("Encode {}", new String(myFileNameEncoded));
+                myFileMetaResponse.setDownloadName(new String(myFileNameEncoded));
                 fileMeta.setSuccess(true);
             } catch (IOException e)
             {
@@ -98,7 +113,8 @@ public class FileController
 
         // result will be like this
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
-        return files;
+        myFileMetaResponse.setFileMetas(files);
+        return myFileMetaResponse;
 
     }
 
@@ -115,12 +131,16 @@ public class FileController
     @RequestMapping(value = "/get/{value}", method = RequestMethod.GET)
     public void get(HttpServletResponse response, @PathVariable String value)
     {
-        FileMeta getFile = files.get(Integer.parseInt(value));
         try
         {
-            response.setContentType(getFile.getFileType());
-            response.setHeader("Content-disposition", "attachment; filename=\"" + getFile.getFileName() + "\"");
-            FileCopyUtils.copy(getFile.getBytes(), response.getOutputStream());
+            LOG.debug("File {}", String.valueOf(Base64.decodeBase64(value)));
+            LOG.debug("File {}", new String(Base64.decodeBase64(value)));
+            FileInputStream myFileInputStream = new FileInputStream(new File(new String(Base64.decodeBase64(value))));
+            //FileMeta getFile = files.get(Integer.parseInt(value));
+
+            response.setContentType("text/csv");
+            response.setHeader("Content-disposition", "attachment; filename=\"nomina.csv\"");
+            FileCopyUtils.copy(myFileInputStream, response.getOutputStream());
         } catch (IOException e)
         {
             LOG.error(e.getCause().getMessage(), e);

@@ -1,26 +1,29 @@
 package com.ips.payroll.balance.service.service;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
+import com.ips.payroll.balance.model.Deduccion;
+import com.ips.payroll.balance.model.HorasExtras;
+import com.ips.payroll.balance.model.Incapacidad;
+import com.ips.payroll.balance.model.Percepcion;
+import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.model.enums.DeduccionType;
+import com.ips.payroll.balance.model.enums.HorasExtrasType;
+import com.ips.payroll.balance.model.enums.IncapacidadType;
+import com.ips.payroll.balance.model.enums.PercepcionType;
+import com.ips.payroll.balance.service.api.NominaService;
 import mx.gob.sat.cfd._3.Comprobante;
 import mx.gob.sat.nomina.Nomina;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import com.ips.payroll.balance.model.Percepcion;
-import com.ips.payroll.balance.model.ReportItem;
-import com.ips.payroll.balance.model.enums.PercepcionType;
-import com.ips.payroll.balance.service.api.NominaService;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by acardenas on 6/23/14.
@@ -32,9 +35,9 @@ public class NominaServiceBean
     private static final Logger LOG = LoggerFactory.getLogger(NominaServiceBean.class);
 
     private ConversionService conversionService;
-    
+
     @Autowired
-    public NominaServiceBean(ConversionService conversionService) 
+    public NominaServiceBean(ConversionService conversionService)
     {
         this.conversionService = conversionService;
     }
@@ -71,16 +74,19 @@ public class NominaServiceBean
             }
 
             myReturn = conversionService.convert(myNomina, ReportItem.class);
-			Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(myNomina.getPercepciones(), Map.class);
-            
-            
+            Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(
+                    myNomina.getPercepciones(), Map.class);
+            Map<DeduccionType, Deduccion> myDeducciones = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+            Map<IncapacidadType, Incapacidad> myIncapacidad = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+            Map<HorasExtrasType, HorasExtras> myHorasExtras = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+
             myReturn.setPercepciones(myPercepciones);
-
-//            myReturn.setNumSeguridadSocial(myNomina.getNumSeguridadSocial());
-//            myReturn.setCurp(myNomina.getCURP());
-//            myReturn.setAntiguedad(myNomina.getAntiguedad());
-//            myReturn.setDeducciones(new Deducciones());
-
+            myReturn.setDeducciones(myDeducciones);
+            myReturn.setIncapacidades(myIncapacidad);
+            myReturn.setHorasExtras(myHorasExtras);
 
         } catch (JAXBException e)
         {

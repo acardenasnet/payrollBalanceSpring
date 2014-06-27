@@ -1,9 +1,34 @@
 package com.ips.payroll.balance.model;
 
-public class Deduccion {
+import java.math.BigDecimal;
 
-	public Deduccion() {
-		// TODO Auto-generated constructor stub
-	}
+public class Deduccion
+{
+    private BigDecimal importeGravado;
+    private BigDecimal importeExento;
 
+    public Deduccion()
+    {
+        // empty
+    }
+
+    public BigDecimal getImporteGravado()
+    {
+        return importeGravado;
+    }
+
+    public void setImporteGravado(BigDecimal importeGravado)
+    {
+        this.importeGravado = importeGravado;
+    }
+
+    public BigDecimal getImporteExento()
+    {
+        return importeExento;
+    }
+
+    public void setImporteExento(BigDecimal importeExento)
+    {
+        this.importeExento = importeExento;
+    }
 }

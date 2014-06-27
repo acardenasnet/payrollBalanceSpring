@@ -5,5 +5,5 @@ package com.ips.payroll.balance.service.api;
  */
 public interface CsvService<T>
 {
-    String convertToCsv(T aBean);
+    byte[] convertToCsv(T aBean);
 }
