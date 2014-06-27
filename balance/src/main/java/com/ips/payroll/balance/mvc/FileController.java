@@ -2,10 +2,10 @@ package com.ips.payroll.balance.mvc;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,12 +13,12 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -39,8 +39,10 @@ public class FileController
     @Autowired
     private CsvService<ReportItem> csvService;
 
-    LinkedList<FileMeta> files = new LinkedList<FileMeta>();
-    FileMeta fileMeta = null;
+    private LinkedList<FileMeta> files = new LinkedList<FileMeta>();
+    private FileMeta fileMeta = null;
+    private List<ReportItem> reportItems = new LinkedList<ReportItem>();
+    
 
     /**
      * ************************************************
@@ -55,14 +57,10 @@ public class FileController
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public
     @ResponseBody
-    FileMetaResponse upload(MultipartHttpServletRequest request, HttpServletResponse response,
-    		@RequestParam("files[]") MultipartFile[] aFiles)
+    LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response)
     {
-
-        FileMetaResponse myFileMetaResponse = new FileMetaResponse();
+    	ReportItem myReportItem = new ReportItem();
         //1. build an iterator
-        LOG.debug("{}", request.getFileNames());
-        LOG.debug("fromparam {}", aFiles);
         Iterator<String> myIterator = request.getFileNames();
         MultipartFile myMultipartFile = null;
 
@@ -91,35 +89,39 @@ public class FileController
                 // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)
                 //FileCopyUtils.copy(myMultipartFile.getBytes(), new FileOutputStream("files/" + myMultipartFile.getOriginalFilename()));
 
-                LOG.debug("Done !!");
+                
 
-                byte[] myFileContent = csvService.convertToCsv(
-                        nominaService.createNomina(myMultipartFile.getInputStream()));
-                File myFile = File.createTempFile("nomina", ".csv");
+                myReportItem = nominaService.createNomina(myMultipartFile.getInputStream());
+                
+                
+//                byte[] myFileContent = csvService.convertToCsv(myReportItem);
+//                File myFile = File.createTempFile("nomina", ".csv");
 
-                FileOutputStream myFileOutputStream = new FileOutputStream(myFile);
-                myFileOutputStream.write(myFileContent);
-                myFileOutputStream.close();
-
-                byte[] myFileNameEncoded = Base64.encodeBase64(myFile.getAbsolutePath().getBytes());
-                LOG.debug("Encode {}", new String(myFileNameEncoded));
-                myFileMetaResponse.setDownloadName(new String(myFileNameEncoded));
+//                FileOutputStream myFileOutputStream = new FileOutputStream(myFile);
+//                myFileOutputStream.write(myFileContent);
+//                myFileOutputStream.close();
+//
+//                byte[] myFileNameEncoded = Base64.encodeBase64(myFile.getAbsolutePath().getBytes());
+//                LOG.debug("Encode {}", new String(myFileNameEncoded));
+//                myFileMetaResponse.setDownloadName(new String(myFileNameEncoded));
                 fileMeta.setSuccess(true);
-            } catch (IOException e)
+            } 
+            catch (IOException e)
             {
                 LOG.error("Exception IOException", e);
                 fileMeta.setSuccess(false);
             }
             //2.4 add to files
-
+            reportItems.add(myReportItem);
+            LOG.debug("reportItems = {}", reportItems);
             files.add(fileMeta);
+            LOG.debug("Done !!");
 
         }
 
         // result will be like this
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
-        myFileMetaResponse.setFileMetas(files);
-        return myFileMetaResponse;
+        return files;
 
     }
 
@@ -165,6 +167,7 @@ public class FileController
     {
     	fileMeta = null;
     	files = new LinkedList<FileMeta>();
+    	reportItems = new LinkedList<ReportItem>();
     	
     	return "redirect:/";
     }
@@ -179,11 +182,27 @@ public class FileController
      * **************************************************
      */
     @RequestMapping(value = "/process", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    FileMetaResponse process(HttpServletResponse response)
+    public void  process(HttpServletResponse response)
     {
-    	return null;
+    	LOG.info("process starting ...");
+        if (LOG.isDebugEnabled())
+        {
+        	for (ReportItem myReportItemDebug: reportItems)
+        	{
+        		LOG.debug("Emp No: {}", myReportItemDebug.getNumEmpleado());
+        	}
+        }
+    	try
+    	{
+	    	byte[] myFileContent = csvService.convertToCsv(reportItems);
+	        response.setContentType("text/csv");
+	        response.setHeader("Content-disposition", "attachment; filename=\"nomina.csv\"");
+	        FileCopyUtils.copy(myFileContent, response.getOutputStream());
+    	}
+    	catch (IOException e)
+    	{
+    		LOG.error("unable to create CSV file,  please see the stcktrace", e);
+    	}
     }
     
 }

@@ -3,11 +3,8 @@ $(function () {
         dataType: 'json',
 
         done: function (e, data) {
-            $("tr:has(td)").remove();
-            this.downloadButton = $('<button/>');
 
-            $('#download').append($('<a href="rest/controller/get/' + data.result.downloadName + '">Download</a>'));
-            $.each(data.result.fileMetas, function (index, file) {
+            $.each(data.result, function (index, file) {
 
 
                 $("#uploaded-files").append(
@@ -19,8 +16,6 @@ $(function () {
                 )//end $("#uploaded-files").append()
             });
 
-            $('#fileupload').remove();
-            $('#dropzone').remove();
         },
 
         progressall: function (e, data) {
