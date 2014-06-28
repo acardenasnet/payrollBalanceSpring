@@ -2,7 +2,6 @@ package com.ips.payroll.balance.mvc;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
 @JsonIgnoreProperties({"bytes"})
 public class FileMeta
 {
@@ -64,4 +63,14 @@ public class FileMeta
         this.success = success;
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder myStringBuilder = new StringBuilder();
+        myStringBuilder.append("[File Name = ").append(getFileName())
+                .append(", valid = ").append(isSuccess())
+                .append("]");
+
+        return myStringBuilder.toString();
+    }
 }

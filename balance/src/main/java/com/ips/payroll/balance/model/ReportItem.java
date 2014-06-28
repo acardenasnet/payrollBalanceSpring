@@ -299,4 +299,15 @@ public class ReportItem
     {
         this.horasExtras = horasExtras;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder myStringBuilder = new StringBuilder();
+        myStringBuilder.append("[Employee Number = ").append(getNumEmpleado())
+                .append(", CURP = ").append(getCurp())
+                .append("]");
+
+        return myStringBuilder.toString();
+    }
 }

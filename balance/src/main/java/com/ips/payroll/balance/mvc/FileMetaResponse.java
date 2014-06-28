@@ -12,6 +12,10 @@ public class FileMetaResponse
 
     public LinkedList<FileMeta> getFileMetas()
     {
+        if(fileMetas == null)
+        {
+            fileMetas = new LinkedList<FileMeta>();
+        }
         return fileMetas;
     }
 

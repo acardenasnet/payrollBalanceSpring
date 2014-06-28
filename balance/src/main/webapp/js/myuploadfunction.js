@@ -3,7 +3,7 @@ $(function () {
         dataType: 'json',
 
         done: function (e, data) {
-
+            $("tr:has(td)").remove();
             $.each(data.result, function (index, file) {
 
 
