@@ -1,7 +1,6 @@
 package com.ips.payroll.balance.model;
 
 import com.ips.payroll.balance.model.enums.DeduccionType;
-import com.ips.payroll.balance.model.enums.HorasExtrasType;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 import com.ips.payroll.balance.model.enums.PercepcionType;
 
@@ -16,7 +15,7 @@ public class ReportItem
     private Map<PercepcionType, Percepcion> percepciones;
     private Map<DeduccionType, Deduccion> deducciones;
     private Map<IncapacidadType, Incapacidad> incapacidades;
-    private Map<HorasExtrasType, HorasExtras> horasExtras;
+    //    private Map<HorasExtrasType, HorasExtras> horasExtras;
     private String version;
     private String registroPatronal;
     private String numEmpleado;
@@ -290,15 +289,15 @@ public class ReportItem
         this.incapacidades = incapacidades;
     }
 
-    public Map<HorasExtrasType, HorasExtras> getHorasExtras()
-    {
-        return horasExtras;
-    }
+//    public Map<HorasExtrasType, HorasExtras> getHorasExtras()
+//    {
+//        return horasExtras;
+//    }
 
-    public void setHorasExtras(Map<HorasExtrasType, HorasExtras> horasExtras)
-    {
-        this.horasExtras = horasExtras;
-    }
+    //  public void setHorasExtras(Map<HorasExtrasType, HorasExtras> horasExtras)
+    //  {
+    //      this.horasExtras = horasExtras;
+    //  }
 
     @Override
     public String toString()

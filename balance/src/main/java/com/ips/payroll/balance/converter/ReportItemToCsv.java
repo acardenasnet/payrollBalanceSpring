@@ -1,7 +1,6 @@
 package com.ips.payroll.balance.converter;
 
 import au.com.bytecode.opencsv.CSVWriter;
-
 import com.ips.payroll.balance.comparator.PropertyDescriptorComparator;
 import com.ips.payroll.balance.exceptions.BlunderException;
 import com.ips.payroll.balance.model.Deduccion;
@@ -12,7 +11,6 @@ import com.ips.payroll.balance.model.enums.DeduccionType;
 import com.ips.payroll.balance.model.enums.HorasExtrasType;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 import com.ips.payroll.balance.model.enums.PercepcionType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,5 +161,49 @@ public class ReportItemToCsv
         Collections.sort(myPropertyDescriptors, new PropertyDescriptorComparator());
 
         return myPropertyDescriptors;
+    }
+
+    protected void writeHeaders(CSVWriter writer, List<PropertyDescriptor> descriptors)
+    {
+        List<String> headers = new ArrayList<String>();
+        for (PropertyDescriptor myPropertyDescriptor : descriptors)
+        {
+            Type mytype = myPropertyDescriptor.getReadMethod().getGenericReturnType();
+            ParameterizedType genericReturnType = null;
+            Class<?> type = null;
+            if (mytype instanceof ParameterizedType)
+            {
+
+                genericReturnType = (ParameterizedType) mytype;
+                type = (Class<?>) (genericReturnType.getActualTypeArguments()[0]); // could be class or interface
+
+            }
+
+            if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+                    type.isAssignableFrom(PercepcionType.class))
+            {
+
+                for (PercepcionType myPercepcionType : PercepcionType.values())
+                {
+                    headers.add(myPercepcionType.getDescription() + "-Excento");
+                    headers.add(myPercepcionType.getDescription() + "-Gravable");
+                }
+            } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+                    type.isAssignableFrom(DeduccionType.class))
+            {
+
+                for (DeduccionType myDeduccionType : DeduccionType.values())
+                {
+                    headers.add(myDeduccionType.getDescription() + "-Excento");
+                    headers.add(myDeduccionType.getDescription() + "-Gravable");
+                }
+            } else
+            {
+                headers.add(myPropertyDescriptor.getName());
+            }
+
+        }
+        writer.writeNext(headers.toArray(new String[]{}));
+        setWroteHeader(true);
     }
 }

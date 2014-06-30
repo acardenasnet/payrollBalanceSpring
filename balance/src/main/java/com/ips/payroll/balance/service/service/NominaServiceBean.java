@@ -1,5 +1,6 @@
 package com.ips.payroll.balance.service.service;
 
+import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.Deduccion;
 import com.ips.payroll.balance.model.HorasExtras;
 import com.ips.payroll.balance.model.Incapacidad;
@@ -86,11 +87,12 @@ public class NominaServiceBean
             myReturn.setPercepciones(myPercepciones);
             myReturn.setDeducciones(myDeducciones);
             myReturn.setIncapacidades(myIncapacidad);
-            myReturn.setHorasExtras(myHorasExtras);
+//            myReturn.setHorasExtras(myHorasExtras);
 
         } catch (JAXBException e)
         {
             LOG.error("Unable to Parse XML ", e);
+            throw new PayrollException("XML invalid for this application", e);
         }
 
         return myReturn;

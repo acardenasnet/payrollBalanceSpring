@@ -1,16 +1,9 @@
 package com.ips.payroll.balance.mvc;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.ips.payroll.balance.exceptions.PayrollException;
+import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.service.api.CsvService;
+import com.ips.payroll.balance.service.api.NominaService;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ips.payroll.balance.model.ReportItem;
-import com.ips.payroll.balance.service.api.CsvService;
-import com.ips.payroll.balance.service.api.NominaService;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 @Controller
 @RequestMapping("/controller")
@@ -57,7 +55,7 @@ public class FileController
     public String get(HttpSession sessionObj)
     {
         LOG.debug(sessionObj.getId());
-        return "session";
+        return "upload";
     }
 
     /**
@@ -106,13 +104,17 @@ public class FileController
                 fileMeta.setBytes(myMultipartFile.getBytes());
                 LOG.debug("name before transform = {}", myMultipartFile.getOriginalFilename());
                 LOG.debug("name before transform Bean= {}", fileMeta.getFileName());
-                //myReportItem = nominaService.createNomina(myMultipartFile.getInputStream());
+                myReportItem = nominaService.createNomina(myMultipartFile.getInputStream());
                 LOG.debug("name after transform = {}", myMultipartFile.getOriginalFilename());
                 LOG.debug("name after transform bean = {}", fileMeta.getFileName());
 
                 fileMeta.setSuccess(true);
             }
             catch (IOException e)
+            {
+                LOG.error("Exception IOException", e);
+                fileMeta.setSuccess(false);
+            } catch (PayrollException e)
             {
                 LOG.error("Exception IOException", e);
                 fileMeta.setSuccess(false);
