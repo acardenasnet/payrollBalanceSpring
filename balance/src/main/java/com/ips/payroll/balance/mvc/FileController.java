@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 @Controller
-@RequestMapping("/controller")
+@RequestMapping("/")
 @Scope("session")
 public class FileController
 {
@@ -51,7 +51,7 @@ public class FileController
         reportItems = new LinkedList<ReportItem>();
     }
 
-    @RequestMapping(value = "/session", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String get(HttpSession sessionObj)
     {
         LOG.debug(sessionObj.getId());
@@ -68,7 +68,7 @@ public class FileController
      * @return LinkedList<FileMeta> as json format
      * **************************************************
      */
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/controller/upload", method = RequestMethod.POST)
     public
     @ResponseBody
     LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response, HttpSession sessionObj)
@@ -145,7 +145,7 @@ public class FileController
      * @return void
      * **************************************************
      */
-    @RequestMapping(value = "/get/{value}", method = RequestMethod.GET)
+    @RequestMapping(value = "/controller/get/{value}", method = RequestMethod.GET)
     public void get(HttpServletResponse response, @PathVariable String value)
     {
         try
@@ -171,7 +171,7 @@ public class FileController
      * @return String
      * **************************************************
      */
-    @RequestMapping(value = "/get/reset", method = RequestMethod.GET)
+    @RequestMapping(value = "/controller/get/reset", method = RequestMethod.GET)
     public String reset()
     {
         fileMetaResponse.setFileMetas(null);
@@ -189,7 +189,7 @@ public class FileController
      * @return LinkedList<FileMeta> as json format
      * **************************************************
      */
-    @RequestMapping(value = "/process", method = RequestMethod.POST)
+    @RequestMapping(value = "/controller/process", method = RequestMethod.POST)
     public void process(HttpServletResponse response)
     {
         LOG.info("process starting ...");

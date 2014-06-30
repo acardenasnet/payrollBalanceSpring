@@ -35,7 +35,7 @@ public class ReportItemToCsv
 
 
     @Override
-    public void writeBean(CSVWriter writer, Object bean,
+    public void writeBean(CSVWriter aWriter, Object bean,
                           List<PropertyDescriptor> descriptors)
     {
         LOG.debug("writeBean");
@@ -144,11 +144,11 @@ public class ReportItemToCsv
             }
             if (isWriteHeaders() && !isWroteHeader())
             {
-                writeHeaders(writer, descriptors);
+                writeHeaders(aWriter, descriptors);
             }
             LOG.debug("{}", values);
-            writer.writeNext(values.toArray(new String[]{}));
-            writer.flush();
+            aWriter.writeNext(values.toArray(new String[]{}));
+            aWriter.flush();
         } catch (Exception e)
         {
             throw new BlunderException("Error writing bean", e);

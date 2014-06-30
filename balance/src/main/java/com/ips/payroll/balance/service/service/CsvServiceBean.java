@@ -42,9 +42,9 @@ public class CsvServiceBean
         return writer;
     }
 
-    public void setWriter(CSVWriter writer)
+    public void setWriter(CSVWriter aWriter)
     {
-        this.writer = writer;
+        this.writer = aWriter;
     }
 
     /**
