@@ -157,6 +157,7 @@ public class ReportItemToCsv
 
     protected List<PropertyDescriptor> resolvePropertyDescriptors(Class<?> beanClass, Class<?> stopClass)
     {
+        LOG.debug("resolvePropertyDescriptors");
         List<PropertyDescriptor> myPropertyDescriptors = super.resolvePropertyDescriptors(beanClass, stopClass);
         Collections.sort(myPropertyDescriptors, new PropertyDescriptorComparator());
 
