@@ -56,9 +56,6 @@ public class NominaServiceBean
 
             Comprobante myComprobante = (Comprobante) u.unmarshal(anInputStream);
 
-            LOG.debug("Complemento {}", myComprobante.getReceptor().getNombre());
-
-
             Nomina myNomina = null;
             List<Object> myObjectList = myComprobante.getComplemento().getAny();
             for (Object myObject : myObjectList)

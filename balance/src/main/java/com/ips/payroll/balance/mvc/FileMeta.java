@@ -1,8 +1,5 @@
 package com.ips.payroll.balance.mvc;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({"bytes"})
 public class FileMeta
 {
 
@@ -11,8 +8,6 @@ public class FileMeta
     private String fileType;
     private boolean success;
 
-    private byte[] bytes;
-    
     public String getFileName()
     {
         return fileName;
@@ -41,16 +36,6 @@ public class FileMeta
     public void setFileType(String fileType)
     {
         this.fileType = fileType;
-    }
-
-    public byte[] getBytes()
-    {
-        return bytes;
-    }
-
-    public void setBytes(byte[] bytes)
-    {
-        this.bytes = bytes;
     }
 
     public boolean isSuccess()

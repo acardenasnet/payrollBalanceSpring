@@ -146,7 +146,6 @@ public class ReportItemToCsv
             {
                 writeHeaders(aWriter, descriptors);
             }
-            LOG.debug("{}", values);
             aWriter.writeNext(values.toArray(new String[]{}));
             aWriter.flush();
         } catch (Exception e)

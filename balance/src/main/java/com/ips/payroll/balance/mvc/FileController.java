@@ -4,14 +4,12 @@ import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.ReportItem;
 import com.ips.payroll.balance.service.api.CsvService;
 import com.ips.payroll.balance.service.api.NominaService;
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -94,21 +90,16 @@ public class FileController
             //2.3 create new fileMeta
             FileMeta fileMeta = new FileMeta();
             fileMeta.setFileName(myMultipartFile.getOriginalFilename());
-            LOG.debug("fileMeta = {}", myMultipartFile.getOriginalFilename());
             LOG.debug("fileMeta Bean= {}", fileMeta.getFileName());
             fileMeta.setFileSize(myMultipartFile.getSize() / 1024 + " Kb");
             fileMeta.setFileType(myMultipartFile.getContentType());
 
             try
             {
-                fileMeta.setBytes(myMultipartFile.getBytes());
-                LOG.debug("name before transform = {}", myMultipartFile.getOriginalFilename());
-                LOG.debug("name before transform Bean= {}", fileMeta.getFileName());
                 myReportItem = nominaService.createNomina(myMultipartFile.getInputStream());
-                LOG.debug("name after transform = {}", myMultipartFile.getOriginalFilename());
-                LOG.debug("name after transform bean = {}", fileMeta.getFileName());
 
                 fileMeta.setSuccess(true);
+                reportItems.add(myReportItem);
             }
             catch (IOException e)
             {
@@ -120,12 +111,8 @@ public class FileController
                 fileMeta.setSuccess(false);
             }
             //2.4 add to files
-            reportItems.add(myReportItem);
-            LOG.debug("reportItems = {}", reportItems);
             files.add(fileMeta);
-            LOG.debug("filesMeta = {}", files);
-            LOG.debug("fileMeta = {}", fileMeta);
-            LOG.debug("Done !!");
+            LOG.info("Done !!");
 
         }
 
@@ -133,34 +120,6 @@ public class FileController
         // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
         return files;
 
-    }
-
-    /**
-     * ************************************************
-     * URL: /rest/controller/get/{value}
-     * get(): get file as an attachment
-     *
-     * @param response : passed by the server
-     * @param value    : value from the URL
-     * @return void
-     * **************************************************
-     */
-    @RequestMapping(value = "/controller/get/{value}", method = RequestMethod.GET)
-    public void get(HttpServletResponse response, @PathVariable String value)
-    {
-        try
-        {
-            LOG.debug("File {}", new String(Base64.decodeBase64(value)));
-            FileInputStream myFileInputStream = new FileInputStream(new File(new String(Base64.decodeBase64(value))));
-            //FileMeta getFile = files.get(Integer.parseInt(value));
-
-            response.setContentType("text/csv");
-            response.setHeader("Content-disposition", "attachment; filename=\"nomina.csv\"");
-            FileCopyUtils.copy(myFileInputStream, response.getOutputStream());
-        } catch (IOException e)
-        {
-            LOG.error(e.getCause().getMessage(), e);
-        }
     }
 
     /**
@@ -193,13 +152,7 @@ public class FileController
     public void process(HttpServletResponse response)
     {
         LOG.info("process starting ...");
-        if (LOG.isDebugEnabled())
-        {
-            for (ReportItem myReportItemDebug : reportItems)
-            {
-                LOG.debug("Emp No: {}", myReportItemDebug.getNumEmpleado());
-            }
-        }
+
         try
         {
             byte[] myFileContent = csvService.convertToCsv(reportItems);

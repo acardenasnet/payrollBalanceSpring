@@ -12,8 +12,9 @@ $(function () {
                         .append($('<td/>').text(file.fileName))
                         .append($('<td/>').text(file.fileSize))
                         .append($('<td/>').text(file.fileType))
-                        .append($('<td/>').text(file.success))
+                        .append($('<td/>').addClass('status').addClass(file.success.toString()))
                 )//end $("#uploaded-files").append()
+
             });
 
         },
@@ -28,6 +29,6 @@ $(function () {
 
         dropZone: $('#dropzone')
     });
-    
+
 
 });
