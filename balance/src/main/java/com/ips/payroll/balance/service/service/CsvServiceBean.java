@@ -25,8 +25,8 @@ public class CsvServiceBean
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(CsvServiceBean.class);
-    private CSVWriter writer;
     ByteArrayOutputStream outputStream;
+    private CSVWriter writer;
 
     @PostConstruct
     public void init()
@@ -76,7 +76,8 @@ public class CsvServiceBean
                     myBeanToCsv.writeBean(writer, myReportItem);
                 }
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             throw new PayrollException(e);
         }

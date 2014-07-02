@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -38,14 +37,6 @@ public class FileController
 
     @Autowired
     private FileMetaResponse fileMetaResponse;
-
-    private LinkedList<ReportItem> reportItems;
-
-    @PostConstruct
-    public void init()
-    {
-        reportItems = new LinkedList<ReportItem>();
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(HttpSession sessionObj)
@@ -83,9 +74,7 @@ public class FileController
             myMultipartFile = request.getFile(myIterator.next());
             LOG.debug(myMultipartFile.getOriginalFilename() + " uploaded! " + files.size());
 
-            //2.2 if files > 10 remove the first from the list
-            if (files.size() >= 10)
-                files.pop();
+            //TODO: Handler a big List or set a limit
 
             //2.3 create new fileMeta
             FileMeta fileMeta = new FileMeta();
@@ -99,13 +88,14 @@ public class FileController
                 myReportItem = nominaService.createNomina(myMultipartFile.getInputStream());
 
                 fileMeta.setSuccess(true);
-                reportItems.add(myReportItem);
+                fileMetaResponse.getReportItems().add(myReportItem);
             }
             catch (IOException e)
             {
                 LOG.error("Exception IOException", e);
                 fileMeta.setSuccess(false);
-            } catch (PayrollException e)
+            }
+            catch (PayrollException e)
             {
                 LOG.error("Exception IOException", e);
                 fileMeta.setSuccess(false);
@@ -134,7 +124,7 @@ public class FileController
     public String reset()
     {
         fileMetaResponse.setFileMetas(null);
-        reportItems = new LinkedList<ReportItem>();
+        fileMetaResponse.setReportItems(null);
 
         return "redirect:/";
     }
@@ -155,14 +145,30 @@ public class FileController
 
         try
         {
-            byte[] myFileContent = csvService.convertToCsv(reportItems);
+            byte[] myFileContent = csvService.convertToCsv(fileMetaResponse.getReportItems());
             response.setContentType("text/csv");
             response.setHeader("Content-disposition", "attachment; filename=\"nomina.csv\"");
             FileCopyUtils.copy(myFileContent, response.getOutputStream());
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
-            LOG.error("unable to create CSV file,  please see the stcktrace", e);
+            LOG.error("unable to create CSV file,  please see the stackTrace", e);
         }
     }
 
+    /**
+     * ************************************************
+     * URL: /rest/controller/get/list
+     * upload(): receives files
+     *
+     * @return LinkedList<FileMeta> as json format
+     * **************************************************
+     */
+    @RequestMapping(value = "/controller/get/list", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    LinkedList<FileMeta> getList()
+    {
+        return fileMetaResponse.getFileMetas();
+    }
 }

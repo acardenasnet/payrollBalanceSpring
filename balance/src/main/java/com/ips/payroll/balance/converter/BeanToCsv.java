@@ -57,7 +57,8 @@ public class BeanToCsv
             }
             writer.writeNext(values.toArray(new String[]{}));
             writer.flush();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             throw new BlunderException("Error writing bean", e);
         }
@@ -98,7 +99,8 @@ public class BeanToCsv
         try
         {
             propertyDescriptors = Introspector.getBeanInfo(beanClass, stopClass).getPropertyDescriptors();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             throw new BlunderException("Error writing bean", e);
         }
@@ -114,7 +116,8 @@ public class BeanToCsv
             if (pd.getWriteMethod().getAnnotation(Deprecated.class) != null)
             {
                 LOG.debug("Filtering property named [" + pd.getName() + "] for being annotated with @Deprecated!");
-            } else
+            }
+            else
             {
                 descriptors.add(pd);
             }

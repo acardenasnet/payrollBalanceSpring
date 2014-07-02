@@ -86,7 +86,8 @@ public class NominaServiceBean
             myReturn.setIncapacidades(myIncapacidad);
 //            myReturn.setHorasExtras(myHorasExtras);
 
-        } catch (JAXBException e)
+        }
+        catch (JAXBException e)
         {
             LOG.error("Unable to Parse XML ", e);
             throw new PayrollException("XML invalid for this application", e);

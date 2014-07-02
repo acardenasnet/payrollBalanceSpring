@@ -33,7 +33,8 @@ public class DeduccionToListDeduccion
                 myDeduccionToAdd.setImporteGravado(myDeduccion.getImporteGravado());
 
                 myReturn.put(DeduccionType.valueOf(myDeduccion.getClave()), myDeduccionToAdd);
-            } catch (IllegalArgumentException e)
+            }
+            catch (IllegalArgumentException e)
             {
                 continue; //FIXME So far continue with next perceptions, we need handle this way.
             }

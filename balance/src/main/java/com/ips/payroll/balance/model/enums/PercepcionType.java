@@ -9,7 +9,7 @@ public enum PercepcionType
     AGUINAL("Aguinaldo", "002", "Gratificación Anual"),
     AGUIFIN("Aguinaldo Proporcional", "002", "Gratificación Anual"),
     PTU("PTU", "003", "Participación de los Trabajadores en las Utilidades (PTU)"),
-    INCPAGEM("Incapacidad Pagada por la Empresa", "009", "Contribuciones a cargo del trabajador pagadas por el patrón"),    
+    INCPAGEM("Incapacidad Pagada por la Empresa", "009", "Contribuciones a cargo del trabajador pagadas por el patrón"),
     BONOPUNT("Premio por Puntualidad", "010", "Premios por puntualidad"),
     DEVOINFO("Devolución INFONAVIT", "016", "Otros"),
     AJIMP("Ajuste anual de impuestos", "016", "Otros"),

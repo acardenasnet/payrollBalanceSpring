@@ -6,9 +6,9 @@ package com.ips.payroll.balance.exceptions;
 public class PayrollException
         extends RuntimeException
 {
-	private static final long serialVersionUID = -7483441708464703620L;
+    private static final long serialVersionUID = -7483441708464703620L;
 
-	public PayrollException()
+    public PayrollException()
     {
     }
 

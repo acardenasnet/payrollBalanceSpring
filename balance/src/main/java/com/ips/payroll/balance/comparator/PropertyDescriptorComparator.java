@@ -1,12 +1,12 @@
 package com.ips.payroll.balance.comparator;
 
+import com.ips.payroll.balance.model.enums.IncapacidadType;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.Map;
-
-import com.ips.payroll.balance.model.enums.IncapacidadType;
 
 /**
  * Created by acardenas on 6/26/14.

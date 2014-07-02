@@ -76,7 +76,8 @@ public class ReportItemToCsv
                         values.add((myMap.get(myPercepcionType).getImporteExento().toString()));
                         values.add((myMap.get(myPercepcionType).getImporteGravado().toString()));
                     }
-                } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+                }
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                         type.isAssignableFrom(DeduccionType.class))
                 {
 
@@ -94,7 +95,8 @@ public class ReportItemToCsv
                         values.add((myMap.get(myDeduccionType).getImporteExento().toString()));
                         values.add((myMap.get(myDeduccionType).getImporteGravado().toString()));
                     }
-                } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+                }
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                         type.isAssignableFrom(IncapacidadType.class))
                 {
                     for (IncapacidadType myIncapacidadType : IncapacidadType.values())
@@ -113,7 +115,8 @@ public class ReportItemToCsv
                         values.add((myMap.get(myIncapacidadType).getDescuento().toString()));
                         values.add((myMap.get(myIncapacidadType).getDiasIncapacidad().toString()));
                     }
-                } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+                }
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                         type.isAssignableFrom(HorasExtrasType.class))
                 {
                     LOG.debug("myPropertyDescriptor = {}", myPropertyDescriptor.getReadMethod().getGenericReturnType());
@@ -136,7 +139,8 @@ public class ReportItemToCsv
                         values.add(String.valueOf(myMap.get(myHorasExtrasType).getHorasExtra()));
                         values.add(myMap.get(myHorasExtrasType).getImportePagado().toString());
                     }
-                } else
+                }
+                else
                 {
                     Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                     values.add(value == null ? "" : value.toString());
@@ -148,7 +152,8 @@ public class ReportItemToCsv
             }
             aWriter.writeNext(values.toArray(new String[]{}));
             aWriter.flush();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             throw new BlunderException("Error writing bean", e);
         }
@@ -188,7 +193,8 @@ public class ReportItemToCsv
                     headers.add(myPercepcionType.getDescription() + "-Excento");
                     headers.add(myPercepcionType.getDescription() + "-Gravable");
                 }
-            } else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
+            }
+            else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
                     type.isAssignableFrom(DeduccionType.class))
             {
 
@@ -197,7 +203,8 @@ public class ReportItemToCsv
                     headers.add(myDeduccionType.getDescription() + "-Excento");
                     headers.add(myDeduccionType.getDescription() + "-Gravable");
                 }
-            } else
+            }
+            else
             {
                 headers.add(myPropertyDescriptor.getName());
             }

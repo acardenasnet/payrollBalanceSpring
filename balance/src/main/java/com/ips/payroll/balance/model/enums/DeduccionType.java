@@ -20,8 +20,7 @@ public enum DeduccionType
     INFONAVI("Prestamo INFONAVIT", "010", "Pago pot crédito de vivienda"),
     FONACOT("Prestamos FONACOT", "011", "Pago de abonos infonacot"),
     FOAHOEMP("Fondo Ahorro Empleado", "018", "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro"),
-    PRESCAHO("Prestamo Caja de Ahorro", "018", "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro")
-    ;
+    PRESCAHO("Prestamo Caja de Ahorro", "018", "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro");
 
     private String description;
     private String satCode;

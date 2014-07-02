@@ -32,7 +32,8 @@ public class PercepcionesToListPercepcion
                 myPercepcionToAdd.setImporteGravado(myPercepcion.getImporteGravado());
 
                 myReturn.put(PercepcionType.valueOf(myPercepcion.getClave()), myPercepcionToAdd);
-            } catch (IllegalArgumentException e)
+            }
+            catch (IllegalArgumentException e)
             {
                 continue; //FIXME So far continue with next perceptions, we need handle this way.
             }
