@@ -66,15 +66,15 @@ public class ReportItemToCsv
                     {
                         Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                         Map<PercepcionType, Percepcion> myMap = (Map<PercepcionType, Percepcion>) value;
-                        Percepcion myPercepcion = myMap.get(myPercepcionType);
+
                         if (myMap.get(myPercepcionType) == null)
                         {
                             values.add("");
                             values.add("");
                             continue;
                         }
-                        values.add((myMap.get(myPercepcionType).getImporteExento().toString()));
-                        values.add((myMap.get(myPercepcionType).getImporteGravado().toString()));
+                        values.add(myMap.get(myPercepcionType).getImporteExento().toString());
+                        values.add(myMap.get(myPercepcionType).getImporteGravado().toString());
                     }
                 }
                 else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
@@ -85,15 +85,15 @@ public class ReportItemToCsv
                     {
                         Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                         Map<DeduccionType, Deduccion> myMap = (Map<DeduccionType, Deduccion>) value;
-                        Deduccion myDeduccion = myMap.get(myDeduccionType);
+
                         if (myMap.get(myDeduccionType) == null)
                         {
                             values.add("");
                             values.add("");
                             continue;
                         }
-                        values.add((myMap.get(myDeduccionType).getImporteExento().toString()));
-                        values.add((myMap.get(myDeduccionType).getImporteGravado().toString()));
+                        values.add(myMap.get(myDeduccionType).getImporteExento().toString());
+                        values.add(myMap.get(myDeduccionType).getImporteGravado().toString());
                     }
                 }
                 else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
@@ -112,8 +112,8 @@ public class ReportItemToCsv
                             values.add("");
                             continue;
                         }
-                        values.add((myMap.get(myIncapacidadType).getDescuento().toString()));
-                        values.add((myMap.get(myIncapacidadType).getDiasIncapacidad().toString()));
+                        values.add(myMap.get(myIncapacidadType).getDescuento().toString());
+                        values.add(myMap.get(myIncapacidadType).getDiasIncapacidad().toString());
                     }
                 }
                 else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
