@@ -16,9 +16,9 @@ public class Incapacidad
         return diasIncapacidad;
     }
 
-    public void setDiasIncapacidad(BigDecimal diasIncapacidad)
+    public void setDiasIncapacidad(BigDecimal aDiasIncapacidad)
     {
-        this.diasIncapacidad = diasIncapacidad;
+        diasIncapacidad = aDiasIncapacidad;
     }
 
     public int getTipoIncapacidad()
@@ -26,9 +26,9 @@ public class Incapacidad
         return tipoIncapacidad;
     }
 
-    public void setTipoIncapacidad(int tipoIncapacidad)
+    public void setTipoIncapacidad(int aTipoIncapacidad)
     {
-        this.tipoIncapacidad = tipoIncapacidad;
+        tipoIncapacidad = aTipoIncapacidad;
     }
 
     public BigDecimal getDescuento()
@@ -36,8 +36,8 @@ public class Incapacidad
         return descuento;
     }
 
-    public void setDescuento(BigDecimal descuento)
+    public void setDescuento(BigDecimal aDescuento)
     {
-        this.descuento = descuento;
+        descuento = aDescuento;
     }
 }

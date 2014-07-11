@@ -44,9 +44,9 @@ public class ReportItem
         return percepciones;
     }
 
-    public void setPercepciones(Map<PercepcionType, Percepcion> percepciones)
+    public void setPercepciones(Map<PercepcionType, Percepcion> aPercepciones)
     {
-        this.percepciones = percepciones;
+        percepciones = aPercepciones;
     }
 
     public Map<DeduccionType, Deduccion> getDeducciones()
@@ -54,9 +54,9 @@ public class ReportItem
         return deducciones;
     }
 
-    public void setDeducciones(Map<DeduccionType, Deduccion> deducciones)
+    public void setDeducciones(Map<DeduccionType, Deduccion> aDeducciones)
     {
-        this.deducciones = deducciones;
+        deducciones = aDeducciones;
     }
 
     public String getVersion()
@@ -64,9 +64,9 @@ public class ReportItem
         return version;
     }
 
-    public void setVersion(String version)
+    public void setVersion(String aVersion)
     {
-        this.version = version;
+        version = aVersion;
     }
 
     public String getRegistroPatronal()
@@ -74,9 +74,9 @@ public class ReportItem
         return registroPatronal;
     }
 
-    public void setRegistroPatronal(String registroPatronal)
+    public void setRegistroPatronal(String aRregistroPatronal)
     {
-        this.registroPatronal = registroPatronal;
+        registroPatronal = aRregistroPatronal;
     }
 
     public String getNumEmpleado()

@@ -18,9 +18,9 @@ public class Percepcion
         return importeGravado;
     }
 
-    public void setImporteGravado(BigDecimal importeGravado)
+    public void setImporteGravado(BigDecimal anImporteGravado)
     {
-        this.importeGravado = importeGravado;
+        importeGravado = anImporteGravado;
     }
 
     public BigDecimal getImporteExento()
@@ -28,9 +28,9 @@ public class Percepcion
         return importeExento;
     }
 
-    public void setImporteExento(BigDecimal importeExento)
+    public void setImporteExento(BigDecimal anImporteExento)
     {
-        this.importeExento = importeExento;
+        importeExento = anImporteExento;
     }
 
 

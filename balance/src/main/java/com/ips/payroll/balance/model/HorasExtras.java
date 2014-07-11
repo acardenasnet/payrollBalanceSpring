@@ -17,9 +17,9 @@ public class HorasExtras
         return dias;
     }
 
-    public void setDias(int dias)
+    public void setDias(int aDias)
     {
-        this.dias = dias;
+        dias = aDias;
     }
 
     public String getTipoHoras()
@@ -27,9 +27,9 @@ public class HorasExtras
         return tipoHoras;
     }
 
-    public void setTipoHoras(String tipoHoras)
+    public void setTipoHoras(String aTipoHoras)
     {
-        this.tipoHoras = tipoHoras;
+        tipoHoras = aTipoHoras;
     }
 
     public int getHorasExtra()
@@ -37,9 +37,9 @@ public class HorasExtras
         return horasExtra;
     }
 
-    public void setHorasExtra(int horasExtra)
+    public void setHorasExtra(int aHorasExtra)
     {
-        this.horasExtra = horasExtra;
+        horasExtra = aHorasExtra;
     }
 
     public BigDecimal getImportePagado()
@@ -47,8 +47,8 @@ public class HorasExtras
         return importePagado;
     }
 
-    public void setImportePagado(BigDecimal importePagado)
+    public void setImportePagado(BigDecimal anIimportePagado)
     {
-        this.importePagado = importePagado;
+        importePagado = anIimportePagado;
     }
 }
