@@ -1,9 +1,12 @@
 package com.ips.payroll.balance.mvc;
 
-import com.ips.payroll.balance.exceptions.PayrollException;
-import com.ips.payroll.balance.model.ReportItem;
-import com.ips.payroll.balance.service.api.CsvService;
-import com.ips.payroll.balance.service.api.NominaService;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
+import com.ips.payroll.balance.exceptions.PayrollException;
+import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.service.api.CsvService;
+import com.ips.payroll.balance.service.api.NominaService;
 
 @Controller
 @RequestMapping("/")
@@ -58,7 +60,7 @@ public class FileController
     @RequestMapping(value = "/controller/upload", method = RequestMethod.POST)
     public
     @ResponseBody
-    LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response, HttpSession sessionObj)
+    LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpSession sessionObj)
     {
         LOG.debug(sessionObj.getId());
         LinkedList<FileMeta> files = fileMetaResponse.getFileMetas();
@@ -100,7 +102,6 @@ public class FileController
                 LOG.error("Exception IOException", e);
                 fileMeta.setSuccess(false);
             }
-            //2.4 add to files
             files.add(fileMeta);
             LOG.info("Done !!");
 

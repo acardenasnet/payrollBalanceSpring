@@ -1,20 +1,23 @@
 package com.ips.payroll.balance.service.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import au.com.bytecode.opencsv.CSVWriter;
+
 import com.ips.payroll.balance.converter.BeanToCsv;
 import com.ips.payroll.balance.converter.ReportItemToCsv;
 import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.ReportItem;
 import com.ips.payroll.balance.service.api.CsvService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * Created by acardenas on 6/26/14.
@@ -32,7 +35,6 @@ public class CsvServiceBean
     public void init()
     {
         LOG.debug("Calling init");
-        //writer = new CSVWriter(new FileWriter(new File("otput.csv")));
         outputStream = new ByteArrayOutputStream();
         writer = new CSVWriter(new PrintWriter(outputStream));
     }

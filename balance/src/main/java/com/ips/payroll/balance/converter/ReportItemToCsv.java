@@ -1,6 +1,18 @@
 package com.ips.payroll.balance.converter;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import au.com.bytecode.opencsv.CSVWriter;
+
 import com.ips.payroll.balance.comparator.PropertyDescriptorComparator;
 import com.ips.payroll.balance.exceptions.BlunderException;
 import com.ips.payroll.balance.model.Deduccion;
@@ -11,16 +23,6 @@ import com.ips.payroll.balance.model.enums.DeduccionType;
 import com.ips.payroll.balance.model.enums.HorasExtrasType;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 import com.ips.payroll.balance.model.enums.PercepcionType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 public class ReportItemToCsv
         extends BeanToCsv
@@ -152,6 +154,10 @@ public class ReportItemToCsv
             }
             aWriter.writeNext(values.toArray(new String[]{}));
             aWriter.flush();
+        }
+        catch (RuntimeException e) 
+        {
+            throw e;
         }
         catch (Exception e)
         {
