@@ -84,9 +84,9 @@ public class ReportItem
         return numEmpleado;
     }
 
-    public void setNumEmpleado(String numEmpleado)
+    public void setNumEmpleado(String aNumEmpleado)
     {
-        this.numEmpleado = numEmpleado;
+        numEmpleado = aNumEmpleado;
     }
 
     public String getCurp()
@@ -94,9 +94,9 @@ public class ReportItem
         return curp;
     }
 
-    public void setCurp(String curp)
+    public void setCurp(String aCurp)
     {
-        this.curp = curp;
+        curp = aCurp;
     }
 
     public int getTipoRegimen()
@@ -104,9 +104,9 @@ public class ReportItem
         return tipoRegimen;
     }
 
-    public void setTipoRegimen(int tipoRegimen)
+    public void setTipoRegimen(int aTipoRegimen)
     {
-        this.tipoRegimen = tipoRegimen;
+        tipoRegimen = aTipoRegimen;
     }
 
     public String getNumSeguridadSocial()
@@ -114,19 +114,19 @@ public class ReportItem
         return numSeguridadSocial;
     }
 
-    public void setNumSeguridadSocial(String numSeguridadSocial)
+    public void setNumSeguridadSocial(String aNumSeguridadSocial)
     {
-        this.numSeguridadSocial = numSeguridadSocial;
+        numSeguridadSocial = aNumSeguridadSocial;
     }
 
     public Date getFechaPago()
     {
-        return fechaPago;
+        return new Date(fechaPago.getTime());
     }
 
-    public void setFechaPago(Date fechaPago)
+    public void setFechaPago(Date aFechaPago)
     {
-        this.fechaPago = fechaPago;
+        fechaPago = aFechaPago;
     }
 
     public Date getFechaInicialPago()
