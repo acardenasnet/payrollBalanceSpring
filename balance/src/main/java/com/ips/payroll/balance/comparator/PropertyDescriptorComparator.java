@@ -15,7 +15,6 @@ import com.ips.payroll.balance.model.enums.IncapacidadType;
 public class PropertyDescriptorComparator
         implements Comparator<PropertyDescriptor>, Serializable
 {
-    
     private static final int MOVE_TO_END = 99;
     private static final int MOVE_TO_END_NEGATION = -99;
 
