@@ -46,11 +46,10 @@ public class NominaServiceBean
     @Override
     public ReportItem createNomina(InputStream anInputStream)
     {
-        ReportItem myReturn = new ReportItem();
+       
         try
         {
-            //File myFile = new File("/home/acardenas/Dropbox/ips/xml-nomina/done/1-QNC-QNC-2014-11-00107.xml");
-
+            ReportItem myReturn = new ReportItem();
             JAXBContext context = JAXBContext.newInstance("mx.gob.sat.cfd._3:mx.gob.sat.nomina");
             Unmarshaller u = context.createUnmarshaller();
 
@@ -85,6 +84,8 @@ public class NominaServiceBean
             myReturn.setDeducciones(myDeducciones);
             myReturn.setIncapacidades(myIncapacidad);
 //            myReturn.setHorasExtras(myHorasExtras);
+            
+            return myReturn;
 
         }
         catch (JAXBException e)
@@ -92,8 +93,6 @@ public class NominaServiceBean
             LOG.error("Unable to Parse XML ", e);
             throw new PayrollException("XML invalid for this application", e);
         }
-
-        return myReturn;
     }
 
 }

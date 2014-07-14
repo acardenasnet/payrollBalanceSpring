@@ -79,7 +79,7 @@ public class ReportItemToCsv
                         values.add(myMap.get(myPercepcionType).getImporteGravado().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(DeduccionType.class))
                 {
 
@@ -98,7 +98,7 @@ public class ReportItemToCsv
                         values.add(myMap.get(myDeduccionType).getImporteGravado().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(IncapacidadType.class))
                 {
                     for (IncapacidadType myIncapacidadType : IncapacidadType.values())
@@ -118,7 +118,7 @@ public class ReportItemToCsv
                         values.add(myMap.get(myIncapacidadType).getDiasIncapacidad().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(HorasExtrasType.class))
                 {
                     LOG.debug("myPropertyDescriptor = {}", myPropertyDescriptor.getReadMethod().getGenericReturnType());
@@ -190,7 +190,7 @@ public class ReportItemToCsv
 
             }
 
-            if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+            if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                     && type.isAssignableFrom(PercepcionType.class))
             {
 
@@ -200,7 +200,7 @@ public class ReportItemToCsv
                     headers.add(myPercepcionType.getDescription() + "-Gravable");
                 }
             }
-            else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+            else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                     && type.isAssignableFrom(DeduccionType.class))
             {
 
