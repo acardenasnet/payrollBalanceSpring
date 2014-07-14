@@ -60,8 +60,8 @@ public class ReportItemToCsv
                             type);
                 }
 
-                if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                        type.isAssignableFrom(PercepcionType.class))
+                if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                        && type.isAssignableFrom(PercepcionType.class))
                 {
 
                     for (PercepcionType myPercepcionType : PercepcionType.values())
@@ -79,8 +79,8 @@ public class ReportItemToCsv
                         values.add(myMap.get(myPercepcionType).getImporteGravado().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                        type.isAssignableFrom(DeduccionType.class))
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                        && type.isAssignableFrom(DeduccionType.class))
                 {
 
                     for (DeduccionType myDeduccionType : DeduccionType.values())
@@ -98,8 +98,8 @@ public class ReportItemToCsv
                         values.add(myMap.get(myDeduccionType).getImporteGravado().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                        type.isAssignableFrom(IncapacidadType.class))
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                        && type.isAssignableFrom(IncapacidadType.class))
                 {
                     for (IncapacidadType myIncapacidadType : IncapacidadType.values())
                     {
@@ -118,8 +118,8 @@ public class ReportItemToCsv
                         values.add(myMap.get(myIncapacidadType).getDiasIncapacidad().toString());
                     }
                 }
-                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                        type.isAssignableFrom(HorasExtrasType.class))
+                else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                        && type.isAssignableFrom(HorasExtrasType.class))
                 {
                     LOG.debug("myPropertyDescriptor = {}", myPropertyDescriptor.getReadMethod().getGenericReturnType());
 
@@ -190,8 +190,8 @@ public class ReportItemToCsv
 
             }
 
-            if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                    type.isAssignableFrom(PercepcionType.class))
+            if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                    && type.isAssignableFrom(PercepcionType.class))
             {
 
                 for (PercepcionType myPercepcionType : PercepcionType.values())
@@ -200,8 +200,8 @@ public class ReportItemToCsv
                     headers.add(myPercepcionType.getDescription() + "-Gravable");
                 }
             }
-            else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) &&
-                    type.isAssignableFrom(DeduccionType.class))
+            else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                    && type.isAssignableFrom(DeduccionType.class))
             {
 
                 for (DeduccionType myDeduccionType : DeduccionType.values())
