@@ -35,13 +35,8 @@ public class NominaServiceBean
 {
     private static final Logger LOG = LoggerFactory.getLogger(NominaServiceBean.class);
 
-    private ConversionService conversionService;
-
     @Autowired
-    public NominaServiceBean(ConversionService aConversionService)
-    {
-        conversionService = aConversionService;
-    }
+    private ConversionService conversionService;
 
     @Override
     public ReportItem createNomina(InputStream anInputStream)
