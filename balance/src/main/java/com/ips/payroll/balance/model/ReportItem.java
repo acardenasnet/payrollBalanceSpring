@@ -126,27 +126,27 @@ public class ReportItem
 
     public void setFechaPago(Date aFechaPago)
     {
-        fechaPago = aFechaPago;
+        fechaPago = new Date(aFechaPago.getTime());
     }
 
     public Date getFechaInicialPago()
     {
-        return fechaInicialPago;
+        return new Date(fechaInicialPago.getTime());
     }
 
     public void setFechaInicialPago(Date aPayStartDate)
     {
-        fechaInicialPago = aPayStartDate;
+        fechaInicialPago = new Date(aPayStartDate.getTime());
     }
 
     public Date getFechaFinalPago()
     {
-        return fechaFinalPago;
+        return new Date(fechaFinalPago.getTime());
     }
 
     public void setFechaFinalPago(Date aPayEndDate)
     {
-        fechaFinalPago = aPayEndDate;
+        fechaFinalPago = new Date(aPayEndDate.getTime());
     }
 
     public BigDecimal getNumDiasPagados()
@@ -191,12 +191,12 @@ public class ReportItem
 
     public Date getFechaInicioRelLaboral()
     {
-        return fechaInicioRelLaboral;
+        return new Date(fechaInicioRelLaboral.getTime());
     }
 
     public void setFechaInicioRelLaboral(Date aFechaInicioRelLaboral)
     {
-        fechaInicioRelLaboral = aFechaInicioRelLaboral;
+        fechaInicioRelLaboral = new Date(aFechaInicioRelLaboral.getTime());
     }
 
     public Integer getAntiguedad()
