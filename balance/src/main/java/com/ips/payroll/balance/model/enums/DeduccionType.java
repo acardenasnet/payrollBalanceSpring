@@ -19,8 +19,10 @@ public enum DeduccionType
     PENALIME("Pension Alimenticia", "007", "Pensión alimenticia"),
     INFONAVI("Prestamo INFONAVIT", "010", "Pago pot crédito de vivienda"),
     FONACOT("Prestamos FONACOT", "011", "Pago de abonos infonacot"),
-    FOAHOEMP("Fondo Ahorro Empleado", "018", "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro"),
-    PRESCAHO("Prestamo Caja de Ahorro", "018", "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro");
+    FOAHOEMP("Fondo Ahorro Empleado", "018", 
+            "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro"),
+    PRESCAHO("Prestamo Caja de Ahorro", "018", 
+            "Cuotas para la constitución y fomento de sociedades cooperativas y de cajas de ahorro");
 
     private String description;
     private String satCode;
@@ -32,16 +34,28 @@ public enum DeduccionType
         description = aDescription;
     }
 
+    /**
+     * Retrieve the description of the concept
+     * @return String Description.
+     */
     public String getDescription()
     {
         return description;
     }
 
+    /**
+     * Retrieves the code used for the SAT
+     * @return SAT Code
+     */
     public String getSatCode()
     {
         return satCode;
     }
 
+    /**
+     * Retrieves the description used for the SAT. 
+     * @return
+     */
     public String getSatDescription()
     {
         return satDescription;

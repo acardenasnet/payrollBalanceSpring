@@ -30,6 +30,7 @@ import com.ips.payroll.balance.service.api.NominaService;
 public class FileController
 {
     private static final Logger LOG = LoggerFactory.getLogger(FileController.class);
+    private static final int ONE_KB_FROM_BYTES = 1024;
 
     @Autowired
     private NominaService nominaService;
@@ -58,9 +59,8 @@ public class FileController
      * **************************************************
      */
     @RequestMapping(value = "/controller/upload", method = RequestMethod.POST)
-    public
     @ResponseBody
-    LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpSession sessionObj)
+    public LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpSession sessionObj)
     {
         LOG.debug(sessionObj.getId());
         LinkedList<FileMeta> files = fileMetaResponse.getFileMetas();
@@ -82,7 +82,7 @@ public class FileController
             FileMeta fileMeta = new FileMeta();
             fileMeta.setFileName(myMultipartFile.getOriginalFilename());
             LOG.debug("fileMeta Bean= {}", fileMeta.getFileName());
-            fileMeta.setFileSize(myMultipartFile.getSize() / 1024 + " Kb");
+            fileMeta.setFileSize(myMultipartFile.getSize() / ONE_KB_FROM_BYTES + " Kb");
             fileMeta.setFileType(myMultipartFile.getContentType());
 
             try
