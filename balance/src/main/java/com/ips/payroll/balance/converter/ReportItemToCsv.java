@@ -60,7 +60,7 @@ public class ReportItemToCsv
                             type);
                 }
 
-                if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class) 
+                if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(PercepcionType.class))
                 {
 
