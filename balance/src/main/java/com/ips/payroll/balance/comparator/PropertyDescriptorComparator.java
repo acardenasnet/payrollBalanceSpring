@@ -10,15 +10,19 @@ import java.util.Map;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 
 /**
- * Created by acardenas on 6/26/14.
+ *class to compare the field types and sort by with the correct order.
  */
 public class PropertyDescriptorComparator
         implements Comparator<PropertyDescriptor>, Serializable
 {
+    
+    private static final int MOVE_TO_END = 99;
+    private static final int MOVE_TO_END_NEGATION = -99;
 
     private static final long serialVersionUID = 832459946124616940L;
 
     @Override
+    /** {@inheritDoc} */
     public int compare(PropertyDescriptor aPropertyDescriptor1, PropertyDescriptor aPropertyDescriptor2)
     {
         Type mytype = aPropertyDescriptor1.getReadMethod().getGenericReturnType();
@@ -31,7 +35,7 @@ public class PropertyDescriptorComparator
 
             if (type.isAssignableFrom(IncapacidadType.class))
             {
-                return 99;
+                return MOVE_TO_END;
             }
 
         }
@@ -46,7 +50,7 @@ public class PropertyDescriptorComparator
 
             if (type.isAssignableFrom(IncapacidadType.class))
             {
-                return -99;
+                return MOVE_TO_END_NEGATION;
             }
 
         }

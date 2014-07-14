@@ -27,36 +27,43 @@ public class BeanToCsv
         setWroteHeader(false);
     }
 
-    public void writeBean(CSVWriter writer, Object bean)
+    public void writeBean(CSVWriter aWriter, Object aBean)
     {
-        writeBean(writer, bean, java.lang.Object.class);
+        writeBean(aWriter, aBean, java.lang.Object.class);
     }
 
-    public void writeBean(CSVWriter writer, Object bean, Class<?> stopClass)
+    public void writeBean(CSVWriter aWriter, Object bean, Class<?> anStopClass)
     {
         if (bean == null)
         {
             throw new NullPointerException("Bean can not be null!");
         }
-        writeBean(writer, bean, resolvePropertyDescriptors(bean.getClass(), stopClass));
+        writeBean(aWriter, bean, resolvePropertyDescriptors(bean.getClass(), anStopClass));
     }
 
-    public void writeBean(CSVWriter writer, Object bean, List<PropertyDescriptor> descriptors)
+    public void writeBean(CSVWriter aWriter, Object aBean, List<PropertyDescriptor> aDescriptors)
     {
         try
         {
             List<String> values = new ArrayList<String>();
-            for (PropertyDescriptor pd : descriptors)
+            for (PropertyDescriptor pd : aDescriptors)
             {
-                Object value = pd.getReadMethod().invoke(bean, new Object[]{});
-                values.add(value == null ? "" : value.toString());
+                Object value = pd.getReadMethod().invoke(aBean, new Object[]{});
+                if (value == null)
+                {
+                    values.add("");
+                }
+                else 
+                {
+                    values.add(value.toString());
+                }
             }
             if (isWriteHeaders() && !isWroteHeader())
             {
-                writeHeaders(writer, descriptors);
+                writeHeaders(aWriter, aDescriptors);
             }
-            writer.writeNext(values.toArray(new String[]{}));
-            writer.flush();
+            aWriter.writeNext(values.toArray(new String[]{}));
+            aWriter.flush();
         }
         catch (Exception e)
         {
@@ -64,21 +71,21 @@ public class BeanToCsv
         }
     }
 
-    public void writeAllBeans(CSVWriter writer, List<?> beans)
+    public void writeAllBeans(CSVWriter aWriter, List<?> aBeans)
     {
-        writeAllBeans(writer, beans, java.lang.Object.class);
+        writeAllBeans(aWriter, aBeans, java.lang.Object.class);
     }
 
-    public void writeAllBeans(CSVWriter writer, List<?> beans, Class<?> stopClass)
+    public void writeAllBeans(CSVWriter aWriter, List<?> aBeans, Class<?> anStopClass)
     {
-        List<PropertyDescriptor> descriptors = resolvePropertyDescriptors(beans.get(0).getClass(), stopClass);
+        List<PropertyDescriptor> descriptors = resolvePropertyDescriptors(aBeans.get(0).getClass(), anStopClass);
         if (isWriteHeaders() && !isWroteHeader())
         {
-            writeHeaders(writer, descriptors);
+            writeHeaders(aWriter, descriptors);
         }
-        for (Object bean : beans)
+        for (Object bean : aBeans)
         {
-            writeBean(writer, bean, descriptors);
+            writeBean(aWriter, bean, descriptors);
         }
     }
 
@@ -130,9 +137,9 @@ public class BeanToCsv
         return writeHeaders;
     }
 
-    public void setWriteHeaders(boolean writeHeaders)
+    public void setWriteHeaders(boolean aWriteHeaders)
     {
-        this.writeHeaders = writeHeaders;
+        writeHeaders = aWriteHeaders;
     }
 
     public boolean isWriteDeprecated()
@@ -140,9 +147,9 @@ public class BeanToCsv
         return writeDeprecated;
     }
 
-    public void setWriteDeprecated(boolean writeDeprecated)
+    public void setWriteDeprecated(boolean aWriteDeprecated)
     {
-        this.writeDeprecated = writeDeprecated;
+        writeDeprecated = aWriteDeprecated;
     }
 
     public boolean isWroteHeader()
@@ -150,9 +157,8 @@ public class BeanToCsv
         return wroteHeader;
     }
 
-    public void setWroteHeader(boolean wroteHeader)
+    public void setWroteHeader(boolean aWroteHeader)
     {
-        this.wroteHeader = wroteHeader;
+        wroteHeader = aWroteHeader;
     }
-
 }
