@@ -22,9 +22,9 @@ public class FileMetaResponse
         return fileMetas;
     }
 
-    public void setFileMetas(LinkedList<FileMeta> fileMetas)
+    public void setFileMetas(LinkedList<FileMeta> aFileMetas)
     {
-        this.fileMetas = fileMetas;
+        fileMetas = aFileMetas;
     }
 
     public String getDownloadName()
@@ -32,9 +32,9 @@ public class FileMetaResponse
         return downloadName;
     }
 
-    public void setDownloadName(String downloadName)
+    public void setDownloadName(String aDownloadName)
     {
-        this.downloadName = downloadName;
+        this.downloadName = aDownloadName;
     }
 
     public LinkedList<ReportItem> getReportItems()
@@ -46,8 +46,8 @@ public class FileMetaResponse
         return reportItems;
     }
 
-    public void setReportItems(LinkedList<ReportItem> reportItems)
+    public void setReportItems(LinkedList<ReportItem> aReportItems)
     {
-        this.reportItems = reportItems;
+        this.reportItems = aReportItems;
     }
 }

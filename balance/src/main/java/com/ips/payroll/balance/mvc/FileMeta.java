@@ -13,9 +13,9 @@ public class FileMeta
         return fileName;
     }
 
-    public void setFileName(String fileName)
+    public void setFileName(String aFileName)
     {
-        this.fileName = fileName;
+        fileName = aFileName;
     }
 
     public String getFileSize()
@@ -23,9 +23,9 @@ public class FileMeta
         return fileSize;
     }
 
-    public void setFileSize(String fileSize)
+    public void setFileSize(String aFileSize)
     {
-        this.fileSize = fileSize;
+        fileSize = aFileSize;
     }
 
     public String getFileType()
@@ -33,9 +33,9 @@ public class FileMeta
         return fileType;
     }
 
-    public void setFileType(String fileType)
+    public void setFileType(String aFfileType)
     {
-        this.fileType = fileType;
+        fileType = aFfileType;
     }
 
     public boolean isSuccess()
@@ -43,9 +43,9 @@ public class FileMeta
         return success;
     }
 
-    public void setSuccess(boolean success)
+    public void setSuccess(boolean isSuccess)
     {
-        this.success = success;
+        success = isSuccess;
     }
 
     @Override
