@@ -38,15 +38,14 @@ public class NominaServiceBean
     private ConversionService conversionService;
 
     @Autowired
-    public NominaServiceBean(ConversionService conversionService)
+    public NominaServiceBean(ConversionService aConversionService)
     {
-        this.conversionService = conversionService;
+        conversionService = aConversionService;
     }
 
     @Override
     public ReportItem createNomina(InputStream anInputStream)
     {
-       
         try
         {
             ReportItem myReturn = new ReportItem();
@@ -84,7 +83,6 @@ public class NominaServiceBean
             myReturn.setDeducciones(myDeducciones);
             myReturn.setIncapacidades(myIncapacidad);
 //            myReturn.setHorasExtras(myHorasExtras);
-            
             return myReturn;
 
         }

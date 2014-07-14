@@ -20,10 +20,10 @@ public class BeanToCsv
     private boolean writeHeaders;
     private boolean writeDeprecated;
 
-    public BeanToCsv(boolean writeHeaders, boolean writeDeprecated)
+    public BeanToCsv(boolean aWriteHeaders, boolean aWriteDeprecated)
     {
-        setWriteDeprecated(writeDeprecated);
-        setWriteHeaders(writeHeaders);
+        setWriteDeprecated(aWriteDeprecated);
+        setWriteHeaders(aWriteHeaders);
         setWroteHeader(false);
     }
 
@@ -53,7 +53,7 @@ public class BeanToCsv
                 {
                     values.add("");
                 }
-                else 
+                else
                 {
                     values.add(value.toString());
                 }

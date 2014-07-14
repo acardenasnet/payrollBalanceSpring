@@ -28,7 +28,7 @@ public class CsvServiceBean
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(CsvServiceBean.class);
-    ByteArrayOutputStream outputStream;
+    private ByteArrayOutputStream outputStream;
     private CSVWriter writer;
 
     @PostConstruct

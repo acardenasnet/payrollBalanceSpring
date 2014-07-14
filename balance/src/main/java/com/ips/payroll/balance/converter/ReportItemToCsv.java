@@ -145,7 +145,14 @@ public class ReportItemToCsv
                 else
                 {
                     Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
-                    values.add(value == null ? "" : value.toString());
+                    if (value == null)
+                    {
+                        values.add("");
+                    }
+                    else
+                    {
+                        values.add(value.toString());
+                    }
                 }
             }
             if (isWriteHeaders() && !isWroteHeader())
@@ -155,7 +162,7 @@ public class ReportItemToCsv
             aWriter.writeNext(values.toArray(new String[]{}));
             aWriter.flush();
         }
-        catch (RuntimeException e) 
+        catch (RuntimeException e)
         {
             throw e;
         }

@@ -166,9 +166,8 @@ public class FileController
      * **************************************************
      */
     @RequestMapping(value = "/controller/get/list", method = RequestMethod.GET)
-    public
     @ResponseBody
-    LinkedList<FileMeta> getList()
+    public LinkedList<FileMeta> getList()
     {
         return fileMetaResponse.getFileMetas();
     }
