@@ -2,6 +2,7 @@ package com.ips.payroll.balance.model;
 
 import java.math.BigDecimal;
 
+/** Deduction Model class.*/
 public class Deduccion
 {
     private BigDecimal importeGravado;

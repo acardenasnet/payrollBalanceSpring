@@ -134,9 +134,9 @@ public class ReportItem
         return fechaInicialPago;
     }
 
-    public void setFechaInicialPago(Date fechaInicialPago)
+    public void setFechaInicialPago(Date aPayStartDate)
     {
-        this.fechaInicialPago = fechaInicialPago;
+        fechaInicialPago = aPayStartDate;
     }
 
     public Date getFechaFinalPago()
@@ -144,9 +144,9 @@ public class ReportItem
         return fechaFinalPago;
     }
 
-    public void setFechaFinalPago(Date fechaFinalPago)
+    public void setFechaFinalPago(Date aPayEndDate)
     {
-        this.fechaFinalPago = fechaFinalPago;
+        fechaFinalPago = aPayEndDate;
     }
 
     public BigDecimal getNumDiasPagados()
@@ -154,9 +154,9 @@ public class ReportItem
         return numDiasPagados;
     }
 
-    public void setNumDiasPagados(BigDecimal numDiasPagados)
+    public void setNumDiasPagados(BigDecimal aNumDiasPagados)
     {
-        this.numDiasPagados = numDiasPagados;
+        numDiasPagados = aNumDiasPagados;
     }
 
     public String getDepartamento()
@@ -164,9 +164,9 @@ public class ReportItem
         return departamento;
     }
 
-    public void setDepartamento(String departamento)
+    public void setDepartamento(String aDepartament)
     {
-        this.departamento = departamento;
+        departamento = aDepartament;
     }
 
     public BigInteger getClabe()
@@ -174,9 +174,9 @@ public class ReportItem
         return clabe;
     }
 
-    public void setClabe(BigInteger clabe)
+    public void setClabe(BigInteger aClabe)
     {
-        this.clabe = clabe;
+        clabe = aClabe;
     }
 
     public Integer getBanco()
@@ -184,9 +184,9 @@ public class ReportItem
         return banco;
     }
 
-    public void setBanco(Integer banco)
+    public void setBanco(Integer aBank)
     {
-        this.banco = banco;
+        banco = aBank;
     }
 
     public Date getFechaInicioRelLaboral()
@@ -194,9 +194,9 @@ public class ReportItem
         return fechaInicioRelLaboral;
     }
 
-    public void setFechaInicioRelLaboral(Date fechaInicioRelLaboral)
+    public void setFechaInicioRelLaboral(Date aFechaInicioRelLaboral)
     {
-        this.fechaInicioRelLaboral = fechaInicioRelLaboral;
+        fechaInicioRelLaboral = aFechaInicioRelLaboral;
     }
 
     public Integer getAntiguedad()
@@ -204,9 +204,9 @@ public class ReportItem
         return antiguedad;
     }
 
-    public void setAntiguedad(Integer antiguedad)
+    public void setAntiguedad(Integer anAntiguedad)
     {
-        this.antiguedad = antiguedad;
+        antiguedad = anAntiguedad;
     }
 
     public String getPuesto()
@@ -214,9 +214,9 @@ public class ReportItem
         return puesto;
     }
 
-    public void setPuesto(String puesto)
+    public void setPuesto(String aPuesto)
     {
-        this.puesto = puesto;
+        puesto = aPuesto;
     }
 
     public String getTipoContrato()
@@ -224,9 +224,9 @@ public class ReportItem
         return tipoContrato;
     }
 
-    public void setTipoContrato(String tipoContrato)
+    public void setTipoContrato(String aContractType)
     {
-        this.tipoContrato = tipoContrato;
+        tipoContrato = aContractType;
     }
 
     public String getTipoJornada()
@@ -234,9 +234,9 @@ public class ReportItem
         return tipoJornada;
     }
 
-    public void setTipoJornada(String tipoJornada)
+    public void setTipoJornada(String aTipoJornada)
     {
-        this.tipoJornada = tipoJornada;
+        tipoJornada = aTipoJornada;
     }
 
     public String getPeriodicidadPago()
@@ -244,9 +244,9 @@ public class ReportItem
         return periodicidadPago;
     }
 
-    public void setPeriodicidadPago(String periodicidadPago)
+    public void setPeriodicidadPago(String aPeriodicidadPago)
     {
-        this.periodicidadPago = periodicidadPago;
+        periodicidadPago = aPeriodicidadPago;
     }
 
     public BigDecimal getSalarioBaseCotApor()
@@ -254,9 +254,9 @@ public class ReportItem
         return salarioBaseCotApor;
     }
 
-    public void setSalarioBaseCotApor(BigDecimal salarioBaseCotApor)
+    public void setSalarioBaseCotApor(BigDecimal aSalarioBaseCotApor)
     {
-        this.salarioBaseCotApor = salarioBaseCotApor;
+        salarioBaseCotApor = aSalarioBaseCotApor;
     }
 
     public Integer getRiesgoPuesto()
@@ -264,9 +264,9 @@ public class ReportItem
         return riesgoPuesto;
     }
 
-    public void setRiesgoPuesto(Integer riesgoPuesto)
+    public void setRiesgoPuesto(Integer aRiesgoPuesto)
     {
-        this.riesgoPuesto = riesgoPuesto;
+        this.riesgoPuesto = aRiesgoPuesto;
     }
 
     public BigDecimal getSalarioDiarioIntegrado()
@@ -274,9 +274,9 @@ public class ReportItem
         return salarioDiarioIntegrado;
     }
 
-    public void setSalarioDiarioIntegrado(BigDecimal salarioDiarioIntegrado)
+    public void setSalarioDiarioIntegrado(BigDecimal aSalarioDiarioIntegrado)
     {
-        this.salarioDiarioIntegrado = salarioDiarioIntegrado;
+        this.salarioDiarioIntegrado = aSalarioDiarioIntegrado;
     }
 
     public Map<IncapacidadType, Incapacidad> getIncapacidades()
@@ -284,9 +284,9 @@ public class ReportItem
         return incapacidades;
     }
 
-    public void setIncapacidades(Map<IncapacidadType, Incapacidad> incapacidades)
+    public void setIncapacidades(Map<IncapacidadType, Incapacidad> anIncapacidades)
     {
-        this.incapacidades = incapacidades;
+        this.incapacidades = anIncapacidades;
     }
 
 //    public Map<HorasExtrasType, HorasExtras> getHorasExtras()
