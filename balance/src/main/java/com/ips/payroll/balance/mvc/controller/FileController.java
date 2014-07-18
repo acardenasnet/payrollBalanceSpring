@@ -1,4 +1,4 @@
-package com.ips.payroll.balance.mvc;
+package com.ips.payroll.balance.mvc.controller;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.mvc.FileMeta;
+import com.ips.payroll.balance.mvc.FileMetaResponse;
 import com.ips.payroll.balance.service.api.CsvService;
 import com.ips.payroll.balance.service.api.NominaService;
 
