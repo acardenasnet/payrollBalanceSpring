@@ -17,6 +17,7 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<logback.version>0.9.26</logback.version>
 		<jstl.version>1.2</jstl.version>
+		<powermock.version>1.5.1</powermock.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -198,7 +199,39 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4-rule-agent</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4-rule</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>			
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
 
