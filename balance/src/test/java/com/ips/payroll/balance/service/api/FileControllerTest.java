@@ -5,6 +5,7 @@ import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -27,10 +28,12 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.FileCopyUtils;
 
@@ -142,6 +145,28 @@ public class FileControllerTest
         when(mockFileMetaResponse.getFileMetas()).thenReturn(myFileMetaResponses);
         
         mockMvc.perform(get("/controller/get/list"))
+        .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$",Matchers.hasSize(1)))
+                .andExpect(jsonPath("$[0].fileType",Matchers.is("test")))
+                .andExpect(jsonPath("$[0].fileName", Matchers.is("JUnit")));
+    }
+    
+    @Test
+    public void testUpload() throws Exception
+    {
+        LinkedList<FileMeta> myFileMetaResponses = new LinkedList<FileMeta>();
+        FileMeta myFileMeta = new FileMeta();
+        myFileMeta.setFileName("JUnit");
+        myFileMeta.setFileType("test");
+        myFileMeta.setSuccess(true);
+        
+        myFileMetaResponses.add(myFileMeta);
+        
+        when(mockFileMetaResponse.getFileMetas()).thenReturn(myFileMetaResponses);
+        
+        mockMvc.perform(fileUpload("/controller/upload"))
         .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
