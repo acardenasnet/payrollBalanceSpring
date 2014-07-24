@@ -51,20 +51,26 @@ public class NominaServiceBean
 
             Nomina myNomina = null;
             List<Object> myObjectList = myComprobante.getComplemento().getAny();
+            LOG.debug("{}", myComprobante);
+            LOG.debug("{}", myObjectList);
+            
             for (Object myObject : myObjectList)
             {
+                LOG.debug("{}", myObject);
                 if (myObject instanceof Nomina)
                 {
                     myNomina = (Nomina) myObject;
+                    LOG.debug("Nomina {}", myObject);
                 }
             }
 
             if (myNomina == null)
             {
-                throw new RuntimeException("Nomina not Match");
+                throw new PayrollException("Nomina not Match");
             }
-
+            
             myReturn = conversionService.convert(myNomina, ReportItem.class);
+            LOG.debug("Return {}", myReturn);
             Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(
                     myNomina.getPercepciones(), Map.class);
             Map<DeduccionType, Deduccion> myDeducciones = conversionService.convert(
@@ -89,3 +95,4 @@ public class NominaServiceBean
     }
 
 }
+

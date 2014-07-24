@@ -10,7 +10,6 @@ import java.util.LinkedList;
 public class FileMetaResponse
 {
     private LinkedList<FileMeta> fileMetas;
-    private String downloadName;
     private LinkedList<ReportItem> reportItems;
 
     public LinkedList<FileMeta> getFileMetas()
@@ -25,16 +24,6 @@ public class FileMetaResponse
     public void setFileMetas(LinkedList<FileMeta> aFileMetas)
     {
         fileMetas = aFileMetas;
-    }
-
-    public String getDownloadName()
-    {
-        return downloadName;
-    }
-
-    public void setDownloadName(String aDownloadName)
-    {
-        this.downloadName = aDownloadName;
     }
 
     public LinkedList<ReportItem> getReportItems()
