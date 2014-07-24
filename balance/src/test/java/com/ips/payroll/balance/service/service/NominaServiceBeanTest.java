@@ -2,6 +2,7 @@ package com.ips.payroll.balance.service.service;
 
 import java.io.ByteArrayInputStream;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +49,7 @@ public class NominaServiceBeanTest
             .thenReturn(expectedReportItem);
         ReportItem myReportItem = 
                 nominaServiceBean.createNomina(getClass().getResourceAsStream("/1-test.xml"));
+        Assert.assertEquals(myReportItem.getNumEmpleado(), expectedReportItem.getNumEmpleado());
         Mockito.verify(mockConversionService).convert(Matchers.any(), Mockito.eq(ReportItem.class));
     }
 
