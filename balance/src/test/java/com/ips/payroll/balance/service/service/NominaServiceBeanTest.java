@@ -41,11 +41,14 @@ public class NominaServiceBeanTest
     @Test
     public void simpleTest() throws Exception
     {
+        ReportItem expectedReportItem = new ReportItem();
+        expectedReportItem.setNumEmpleado("99999");
         
         Mockito.when(mockConversionService.convert(Matchers.any(), Mockito.eq(ReportItem.class)  ))
-            .thenReturn(new ReportItem());
-        System.out.println(mockConversionService.convert("", ReportItem.class));
-        nominaServiceBean.createNomina(getClass().getResourceAsStream("/1-test.xml"));
+            .thenReturn(expectedReportItem);
+        ReportItem myReportItem = 
+                nominaServiceBean.createNomina(getClass().getResourceAsStream("/1-test.xml"));
+        Mockito.verify(mockConversionService).convert(Matchers.any(), Mockito.eq(ReportItem.class));
     }
 
 }
