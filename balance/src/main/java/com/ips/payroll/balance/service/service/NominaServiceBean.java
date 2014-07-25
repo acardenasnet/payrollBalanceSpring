@@ -53,7 +53,7 @@ public class NominaServiceBean
             List<Object> myObjectList = myComprobante.getComplemento().getAny();
             LOG.debug("{}", myComprobante);
             LOG.debug("{}", myObjectList);
-            
+
             for (Object myObject : myObjectList)
             {
                 LOG.debug("{}", myObject);
@@ -68,7 +68,7 @@ public class NominaServiceBean
             {
                 throw new PayrollException("Nomina not Match");
             }
-            
+
             myReturn = conversionService.convert(myNomina, ReportItem.class);
             LOG.debug("Return {}", myReturn);
             Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(
