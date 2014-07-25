@@ -1,24 +1,30 @@
 package com.ips.payroll.balance.service.service;
 
+import com.ips.payroll.balance.exceptions.PayrollException;
+import com.ips.payroll.balance.model.Deduccion;
+import com.ips.payroll.balance.model.HorasExtras;
+import com.ips.payroll.balance.model.Incapacidad;
+import com.ips.payroll.balance.model.Percepcion;
+import com.ips.payroll.balance.model.ReportItem;
+import com.ips.payroll.balance.model.enums.DeduccionType;
+import com.ips.payroll.balance.model.enums.HorasExtrasType;
+import com.ips.payroll.balance.model.enums.IncapacidadType;
+import com.ips.payroll.balance.model.enums.PercepcionType;
 import com.ips.payroll.balance.service.api.NominaService;
 import mx.gob.sat.cfd._3.Comprobante;
-import mx.gob.sat.cfd.x3.ComprobanteDocument;
 import mx.gob.sat.nomina.Nomina;
-import org.apache.xmlbeans.XmlCursor;
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by acardenas on 6/23/14.
@@ -29,93 +35,64 @@ public class NominaServiceBean
 {
     private static final Logger LOG = LoggerFactory.getLogger(NominaServiceBean.class);
 
-    private Collection<XmlHandlerAbstract<?>> handlers =
-            new HashSet<XmlHandlerAbstract<?>>();
-
-    private static final javax.xml.namespace.QName NOMINA$0 =
-            new javax.xml.namespace.QName("http://www.sat.gob.mx/nomina", "Nomina");
-
-    public NominaServiceBean()
-    {
-        handlers.add(new NominaHandler());
-        handlers.add(new ComprobanteHandler());
-    }
+    @Autowired
+    private ConversionService conversionService;
 
     @Override
-    public void createNomina()
+    public ReportItem createNomina(InputStream anInputStream)
     {
-
         try
         {
-            File myFile = new File("/home/acardenas/Dropbox/ips/xml-nomina/done/1-QNC-QNC-2014-11-00107.xml");
+            ReportItem myReturn = new ReportItem();
             JAXBContext context = JAXBContext.newInstance("mx.gob.sat.cfd._3:mx.gob.sat.nomina");
             Unmarshaller u = context.createUnmarshaller();
 
-            Comprobante myComprobante = (Comprobante) u.unmarshal(myFile);
+            Comprobante myComprobante = (Comprobante) u.unmarshal(anInputStream);
 
-            LOG.debug("Complemento {}", myComprobante.getReceptor().getNombre());
+            Nomina myNomina = null;
+            List<Object> myObjectList = myComprobante.getComplemento().getAny();
+            LOG.debug("{}", myComprobante);
+            LOG.debug("{}", myObjectList);
 
-            LOG.debug("Complemento {}", myComprobante.getComplemento().getAny().get(0));
-
-
-//            Nomina myNomina = (Nomina) u.unmarshal(myComprobante.getComplemento().getAny().get(0).toString());
-
-            LOG.debug("Nomina {}", ((Nomina) myComprobante.getComplemento().getAny().get(0)).getPercepciones().getTotalExento().toPlainString());
-
-            ComprobanteDocument myDocument = ComprobanteDocument.Factory.parse(myFile);
-
-            LOG.debug("XMLBEANS {}", editExistingDocWithSelectChildren(myDocument));
-//            editExistingDocWithSelectChildren(myDocument);
-            LOG.debug("XMLBEANS {}", myDocument.getComprobante().getComplemento());
-
-
-/*
-            boolean myHandled = false;
-            for (XmlHandlerAbstract myHandler : handlers)
+            for (Object myObject : myObjectList)
             {
-
-                Class<?> myHandledClass = myHandler.handles();
-                if (myHandledClass.isInstance(myDocument))
+                LOG.debug("{}", myObject);
+                if (myObject instanceof Nomina)
                 {
-                    myHandler.handle(myDocument);
-                    myHandled = true;
-                    break;
+                    myNomina = (Nomina) myObject;
+                    LOG.debug("Nomina {}", myObject);
                 }
-            }*/
+            }
 
-        } catch (XmlException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JAXBException e)
-        {
-            e.printStackTrace();
+            if (myNomina == null)
+            {
+                throw new PayrollException("Nomina not Match");
+            }
+
+            myReturn = conversionService.convert(myNomina, ReportItem.class);
+            LOG.debug("Return {}", myReturn);
+            Map<PercepcionType, Percepcion> myPercepciones = conversionService.convert(
+                    myNomina.getPercepciones(), Map.class);
+            Map<DeduccionType, Deduccion> myDeducciones = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+            Map<IncapacidadType, Incapacidad> myIncapacidad = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+            Map<HorasExtrasType, HorasExtras> myHorasExtras = conversionService.convert(
+                    myNomina.getDeducciones(), Map.class);
+
+            myReturn.setPercepciones(myPercepciones);
+            myReturn.setDeducciones(myDeducciones);
+            myReturn.setIncapacidades(myIncapacidad);
+//            myReturn.setHorasExtras(myHorasExtras);
+            return myReturn;
+
         }
-
+        catch (JAXBException e)
+        {
+            LOG.error("Unable to Parse XML ", e);
+            throw new PayrollException("XML invalid for this application", e);
+        }
     }
 
-    public boolean editExistingDocWithSelectChildren(ComprobanteDocument rootDoc)
-    {
-        String namespaceUri = "http://xmlbeans.apache.org/samples/any";
-        ComprobanteDocument.Comprobante root = rootDoc.getComprobante();
-
-        // Select the <anyfoo> children of <root>.
-        XmlObject[] stringElements =
-                root.selectChildren(NOMINA$0);
-
-        // If the element is there, replace it with another element.
-        if (stringElements.length > 0)
-        {
-            XmlCursor editCursor = stringElements[0].newCursor();
-            editCursor.removeXml();
-            editCursor.beginElement(NOMINA$0);
-            editCursor.insertChars("some other text");
-            editCursor.dispose();
-        }
-        return rootDoc.validate();
-    }
 }
+

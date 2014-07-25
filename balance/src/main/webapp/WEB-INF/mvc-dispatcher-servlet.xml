@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="com.ips.payroll"/>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
 
-    <mvc:view-controller path="/index.jsp" />
+    <mvc:view-controller path="/index.jsp"/>
+
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -22,4 +27,22 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.ips.payroll.balance.converter.NominaToReportItem"/>
+                <bean class="com.ips.payroll.balance.converter.PercepcionesToListPercepcion"/>
+                <bean class="com.ips.payroll.balance.converter.DeduccionToListDeduccion"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="fileMetaResponse" class="com.ips.payroll.balance.mvc.FileMetaResponse" scope="session">
+        <aop:scoped-proxy/>
+    </bean>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
 </beans>
