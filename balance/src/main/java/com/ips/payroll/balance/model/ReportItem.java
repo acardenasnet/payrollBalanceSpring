@@ -7,6 +7,7 @@ import com.ips.payroll.balance.model.enums.PercepcionType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ReportItem
@@ -41,6 +42,10 @@ public class ReportItem
 
     public Map<PercepcionType, Percepcion> getPercepciones()
     {
+        if (percepciones == null)
+        {
+            return new HashMap<PercepcionType, Percepcion>();
+        }
         return percepciones;
     }
 
@@ -51,6 +56,10 @@ public class ReportItem
 
     public Map<DeduccionType, Deduccion> getDeducciones()
     {
+        if (deducciones == null)
+        {
+            return new HashMap<DeduccionType, Deduccion>();
+        }
         return deducciones;
     }
 
@@ -121,6 +130,10 @@ public class ReportItem
 
     public Date getFechaPago()
     {
+        if (fechaPago == null)
+        {
+            return null;
+        }
         return new Date(fechaPago.getTime());
     }
 
@@ -131,6 +144,10 @@ public class ReportItem
 
     public Date getFechaInicialPago()
     {
+        if (fechaInicialPago == null)
+        {
+            return null;
+        }
         return new Date(fechaInicialPago.getTime());
     }
 
@@ -141,6 +158,10 @@ public class ReportItem
 
     public Date getFechaFinalPago()
     {
+        if (fechaFinalPago == null)
+        {
+            return null;
+        }
         return new Date(fechaFinalPago.getTime());
     }
 
@@ -191,6 +212,10 @@ public class ReportItem
 
     public Date getFechaInicioRelLaboral()
     {
+        if (fechaInicioRelLaboral == null)
+        {
+            return null;
+        }
         return new Date(fechaInicioRelLaboral.getTime());
     }
 
@@ -281,6 +306,10 @@ public class ReportItem
 
     public Map<IncapacidadType, Incapacidad> getIncapacidades()
     {
+        if (incapacidades == null)
+        {
+            return new HashMap<IncapacidadType, Incapacidad>();
+        }
         return incapacidades;
     }
 

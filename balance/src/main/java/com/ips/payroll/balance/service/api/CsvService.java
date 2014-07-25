@@ -7,7 +7,6 @@ import java.util.List;
  */
 public interface CsvService<T>
 {
-    byte[] convertToCsv(T aBean);
 
     /**
      * Convert aList of beans to bytes array

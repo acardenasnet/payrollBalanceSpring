@@ -53,17 +53,6 @@ public class CsvServiceBean
      * {@inheritDoc}
      */
     @Override
-    public byte[] convertToCsv(ReportItem aBean)
-    {
-        BeanToCsv myBeanToCsv = new ReportItemToCsv(true, false);
-        myBeanToCsv.writeBean(writer, aBean);
-        return outputStream.toByteArray();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public byte[] convertToCsv(List<ReportItem> aBeans)
     {
         try
@@ -81,6 +70,7 @@ public class CsvServiceBean
         }
         catch (IOException e)
         {
+            LOG.error("convertToCsv IOException", e);
             throw new PayrollException(e);
         }
 
