@@ -12,7 +12,7 @@
     <script src="<c:url value="/resources/js/jquery.fileupload.js"/>"></script>
 
     <!-- bootstrap just to have good looking page -->
-    <script src="<c:url value="/resources//bootstrap/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"/>"></script>
     <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet"/>
 
     <!-- we code these -->
