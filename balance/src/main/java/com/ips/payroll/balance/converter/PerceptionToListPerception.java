@@ -23,6 +23,11 @@ public class PerceptionToListPerception
     {
         Map<PercepcionType, Percepcion> myReturn = new HashMap<PercepcionType, Percepcion>();
 
+        if (aPercepciones == null)
+        {
+            return myReturn;
+        }
+
         for (Nomina.Percepciones.Percepcion myPercepcion : aPercepciones.getPercepcion())
         {
             try
