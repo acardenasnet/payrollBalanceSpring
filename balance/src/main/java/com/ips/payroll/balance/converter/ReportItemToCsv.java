@@ -63,11 +63,11 @@ public class ReportItemToCsv
                 if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(PercepcionType.class))
                 {
-
+                    Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
+                    Map<PercepcionType, Percepcion> myMap = (Map<PercepcionType, Percepcion>) value;
                     for (PercepcionType myPercepcionType : PercepcionType.values())
                     {
-                        Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
-                        Map<PercepcionType, Percepcion> myMap = (Map<PercepcionType, Percepcion>) value;
+
 
                         if (myMap.get(myPercepcionType) == null)
                         {
