@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.ips.payroll.balance.comparator.PropertyDescriptorComparator;
+import com.ips.payroll.balance.converter.factory.PercepcionConverter;
 import com.ips.payroll.balance.exceptions.BlunderException;
 import com.ips.payroll.balance.model.Deduccion;
 import com.ips.payroll.balance.model.HorasExtras;
@@ -65,19 +66,7 @@ public class ReportItemToCsv
                 {
                     Object value = myPropertyDescriptor.getReadMethod().invoke(bean, new Object[]{});
                     Map<PercepcionType, Percepcion> myMap = (Map<PercepcionType, Percepcion>) value;
-                    for (PercepcionType myPercepcionType : PercepcionType.values())
-                    {
-
-
-                        if (myMap.get(myPercepcionType) == null)
-                        {
-                            values.add("");
-                            values.add("");
-                            continue;
-                        }
-                        values.add(myMap.get(myPercepcionType).getImporteExento().toString());
-                        values.add(myMap.get(myPercepcionType).getImporteGravado().toString());
-                    }
+                    values.addAll(new PercepcionConverter().convertMap(myMap));
                 }
                 else if (myPropertyDescriptor.getPropertyType().isAssignableFrom(Map.class)
                         && type.isAssignableFrom(DeduccionType.class))
