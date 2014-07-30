@@ -1,26 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>IPS CFDI to CSV</title>
-    <script src="<c:url value="/resources/js/jquery.1.9.1.min.js"/>"></script>
 
-    <script src="<c:url value="/resources/js/vendor/jquery.ui.widget.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.iframe-transport.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.fileupload.js"/>"></script>
-
-    <!-- bootstrap just to have good looking page -->
-    <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"/>"></script>
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet"/>
-
-    <!-- we code these -->
-    <link href="<c:url value="/resources/css/dropzone.css"/>" type="text/css" rel="stylesheet"/>
-    <script src="<c:url value="/resources/js/myuploadfunction.js"/>"></script>
-</head>
-
-<body>
 <h1>Convertir Nomina CFDI a CSV</h1>
 
 <div style="width:500px;padding:20px">
@@ -51,8 +31,7 @@
         </tr>
     </table>
 </div>
-</body>
-</html>
+
 <script type="text/javascript">
     var contextPath = '<%=request.getContextPath()%>';
 </script>

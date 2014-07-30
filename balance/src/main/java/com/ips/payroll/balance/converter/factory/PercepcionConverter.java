@@ -26,7 +26,6 @@ public class PercepcionConverter
             myReturn.add(aSoure.get(myPercepcionType).getImporteExento().toString());
             myReturn.add(aSoure.get(myPercepcionType).getImporteGravado().toString());
         }
-        
         return myReturn;
     }
 }
