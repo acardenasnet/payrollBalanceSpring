@@ -14,7 +14,7 @@ public class NominaToReportItem
         ReportItem myReturn = new ReportItem();
         if (aNomina == null)
         {
-            return myReturn; 
+            return myReturn;
         }
 
         myReturn.setAntiguedad(aNomina.getAntiguedad());

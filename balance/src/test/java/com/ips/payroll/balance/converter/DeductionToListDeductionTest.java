@@ -18,12 +18,12 @@ import com.ips.payroll.balance.model.enums.DeduccionType;
 @RunWith(MockitoJUnitRunner.class)
 public class DeductionToListDeductionTest 
 {
-    private DeduccionToListDeduccion deduccionToListDeduccion; 
+    private DeductionToListDeduction deduccionToListDeduccion; 
     
     @Before
     public void setup()
     {
-        deduccionToListDeduccion = new DeduccionToListDeduccion();
+        deduccionToListDeduccion = new DeductionToListDeduction();
         MockitoAnnotations.initMocks(this);
     }
     

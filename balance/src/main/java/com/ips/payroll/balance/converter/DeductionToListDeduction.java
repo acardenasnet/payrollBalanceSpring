@@ -15,10 +15,10 @@ import com.ips.payroll.balance.model.enums.DeduccionType;
 /**
  * Created by acardenas on 6/26/14.
  */
-public class DeduccionToListDeduccion
+public class DeductionToListDeduction
         implements Converter<Nomina.Deducciones, Map<DeduccionType, Deduccion>>
 {
-    private static final Logger LOG = LoggerFactory.getLogger(DeduccionToListDeduccion.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeductionToListDeduction.class);
 
     @Override
     public Map<DeduccionType, Deduccion> convert(Nomina.Deducciones aDeducciones)

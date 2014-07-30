@@ -9,11 +9,11 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PercepcionesToListPercepcion
+public class PerceptionToListPerception
         implements Converter<Nomina.Percepciones, Map<PercepcionType, Percepcion>>
 {
 
-    public PercepcionesToListPercepcion()
+    public PerceptionToListPerception()
     {
         // empty
     }
@@ -23,7 +23,7 @@ public class PercepcionesToListPercepcion
     {
         Map<PercepcionType, Percepcion> myReturn = new HashMap<PercepcionType, Percepcion>();
 
-        for (mx.gob.sat.nomina.Nomina.Percepciones.Percepcion myPercepcion : aPercepciones.getPercepcion())
+        for (Nomina.Percepciones.Percepcion myPercepcion : aPercepciones.getPercepcion())
         {
             try
             {
