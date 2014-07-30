@@ -19,10 +19,6 @@ public class DeduccionToListDeduccion
         implements Converter<Nomina.Deducciones, Map<DeduccionType, Deduccion>>
 {
     private static final Logger LOG = LoggerFactory.getLogger(DeduccionToListDeduccion.class);
-    public DeduccionToListDeduccion()
-    {
-        // empty
-    }
 
     @Override
     public Map<DeduccionType, Deduccion> convert(Nomina.Deducciones aDeducciones)
@@ -47,6 +43,7 @@ public class DeduccionToListDeduccion
             }
             catch (IllegalArgumentException e)
             {
+                LOG.debug("Skip Code {}", myDeduccion.getClave());
                 continue; //FIXME So far continue with next perceptions, we need handle this way.
             }
         }
