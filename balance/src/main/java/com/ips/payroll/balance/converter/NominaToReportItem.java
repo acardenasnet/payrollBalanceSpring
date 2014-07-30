@@ -12,19 +12,32 @@ public class NominaToReportItem
     public ReportItem convert(Nomina aNomina)
     {
         ReportItem myReturn = new ReportItem();
+        if (aNomina == null)
+        {
+            return myReturn; 
+        }
 
         myReturn.setAntiguedad(aNomina.getAntiguedad());
         myReturn.setBanco(aNomina.getBanco());
         myReturn.setClabe(aNomina.getCLABE());
         myReturn.setCurp(aNomina.getCURP());
         myReturn.setDepartamento(aNomina.getDepartamento());
-        myReturn.setFechaFinalPago(aNomina.getFechaFinalPago().toGregorianCalendar().getTime());
-        myReturn.setFechaInicialPago(aNomina.getFechaInicialPago().toGregorianCalendar().getTime());
+        if (aNomina.getFechaFinalPago() != null)
+        {
+            myReturn.setFechaFinalPago(aNomina.getFechaFinalPago().toGregorianCalendar().getTime());
+        }
+        if (aNomina.getFechaInicialPago() != null)
+        {
+            myReturn.setFechaInicialPago(aNomina.getFechaInicialPago().toGregorianCalendar().getTime());
+        }
         if (aNomina.getFechaInicioRelLaboral() != null)
         {
             myReturn.setFechaInicioRelLaboral(aNomina.getFechaInicioRelLaboral().toGregorianCalendar().getTime());
         }
-        myReturn.setFechaPago(aNomina.getFechaPago().toGregorianCalendar().getTime());
+        if (aNomina.getFechaPago() != null)
+        {
+            myReturn.setFechaPago(aNomina.getFechaPago().toGregorianCalendar().getTime());
+        }
         myReturn.setNumDiasPagados(aNomina.getNumDiasPagados());
         myReturn.setNumEmpleado(aNomina.getNumEmpleado());
         myReturn.setNumSeguridadSocial(aNomina.getNumSeguridadSocial());
