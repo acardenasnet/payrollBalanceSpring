@@ -12,12 +12,6 @@ import java.util.Map;
 public class PerceptionToListPerception
         implements Converter<Nomina.Percepciones, Map<PercepcionType, Percepcion>>
 {
-
-    public PerceptionToListPerception()
-    {
-        // empty
-    }
-
     @Override
     public Map<PercepcionType, Percepcion> convert(Percepciones aPercepciones)
     {

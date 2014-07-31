@@ -50,4 +50,10 @@ public class BeanToCsvTest
     {
         beanToCsv.writeBean(mockCSVWriter, new ArrayList<ReportItem>());
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void beanNullToCsvTest() 
+    {
+        beanToCsv.writeBean(mockCSVWriter, null);
+    }
 }
