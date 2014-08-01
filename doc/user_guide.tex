@@ -1,0 +1,461 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simple Sectioned Essay Template
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing essay content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
+
+\usepackage{geometry} % Required to change the page size to A4
+\geometry{letterpaper} % Set the page size to be letter as opposed to the default US Letter
+
+\usepackage{graphicx} % Required for including pictures
+
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+\linespread{1.2} % Line spacing
+
+%\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+{\includegraphics{iPointSystems}}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\textsc{\Large Conversion de XML CFDI Nomina a CSV}\\[0.5cm] % Major heading such as course name
+\textsc{\large Jenkins}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries User Guide}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{flushleft} \large
+\emph{Author:}\\
+Alejandro \textsc{Cardenas} % Your name
+\end{flushleft}
+
+
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Include a table of contents
+
+\newpage % Begins the essay on a new page instead of on the same page as the table of contents 
+
+%----------------------------------------------------------------------------------------
+%	GOAL
+%----------------------------------------------------------------------------------------
+
+\section{Objetivo}
+
+El objetivo del presente docmento es mostrar guiar al usuario de la aplicacion, para hacer un uso correcto de la misma, apoyandose en imagenes para ilustrar la navegacion de la misma.
+ 
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\section{Introduction} % Major section
+
+The tool called Jenkins CI,give us the capability to automate the builds of either Java or .Net projects which are the mainly languages use it for Inflection Point Systems, but Jenkins CI also provide support for other languages such Python, Android, PHP and so on.
+
+Due to we need Jenkins up \& running as prerequisite for this guide then we don't explain the Installation’s process for this tool, beside that just will mention the link taken from the Official site to reach the installation. \url{https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins}
+
+Once we are able to access into Jenkin's Page, we could create "Items", where each item means one Project or depending of the Project, it could create one item by environment, we understand by environment any of the following examples: development, qa, stage, production, etc.
+
+%Example citation \cite{Figueredo:2009dg}.
+
+
+
+%\subsubsection{Subsubsection 1} % Sub-sub-section
+%
+%\lipsum[3] % Dummy text
+%
+%\begin{figure}[H] % Example image
+%\center{\includegraphics[width=0.5\linewidth]{placeholder}}
+%\caption{Example image.}
+%\label{fig:speciation}
+%\end{figure}
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	CREATE AN ITEM
+%----------------------------------------------------------------------------------------
+\newpage
+\section{How to create an item}
+
+The initial step to create an item into Jenkis's system is do a click over "New Item" link, which is allocated on the left menu.
+
+\begin{figure}[H] % image
+	\center{\includegraphics[width=0.38\linewidth]{jenkinis_newitem}}
+	\caption{Left menu.}
+	\label{fig:speciation}
+\end{figure}
+
+Once we have been clicked the link, we should be redirected to a page where we can create a new project, the kind of project's build to create will depends by the project itself but we can reduce the scope and conclude the following:
+
+\begin{itemize}
+	\item When the project was built using Java and Maven, We must choose the option 
+	"Build a maven 2/3 project".
+	\item Otherwise we should choose the option "Build a free-style software project".
+\end{itemize}
+
+The figure ~\ref{fig:speciation} 
+
+\begin{figure}[H] % image
+	\center{\includegraphics[width=1\linewidth]{item_new}}
+	\caption{Builds Types.}
+	\label{fig:speciation}
+\end{figure}
+
+After the selection of the build, you can move on to start the configuration of the "Item", we can summarize the phases of one item as following:
+\begin{itemize}
+	\item SCM Configuration
+	\item Pre Steps
+	\item Build
+	\item Post Build
+\end{itemize}
+
+\subsection{SCM Configuration} % Sub-section
+
+\subsubsection{What is SCM?} % Sub sub section
+
+In software engineering, SCM means Software Configuration Management, is the task of tracking and controlling the changes in the software.
+
+For Jenkins CI, SCM means Source Code Manager, hence for this document SCM has the same meaning, where a Source Code Manager is  software tool used by teams of programmers to manage source code.
+
+SCMs are used to track revisions in software. Each revision is given a time stamp and includes the name of the person who is responsible for the change.
+
+Nowadays exits many different types of SCMs such SVN, GIT, Mercurial, TFS, ClearCase and so on but will depends of the Consumer the type of SCM, currently Inflection Point has its own SVN repository which is the Official place to store the source code, but tuns important keep in mind the needs for some of the inflection Point's Clients, due to few of them required the use of different repositories and we need adapt to those case as well as we review the privacy policies to be sure that we can set up these kind f projects into our Jenkins CI without do any kind of legal violation.
+
+\subsubsection{SCM in Jenkins} % Sub sub section
+Jenkins CI provides plug-ins for almost SCM, hence before setting up the item we need visit the global configuration to be sure that our Jenkins's instance has the plug in of the SCM that we'll use for the project.
+
+Inflection Point used SVN, then need keep in mind that the SVN's Server version and Jenkins's SVN configuration must have the same SVN version, that means that we nee choose the same SVN version in Jenkins installed on the SVN server, for example if the SVN server version is 1.7 we need choose 1.7 in Jenkins as the figure \ref{fig:svn_general} show us.
+
+\begin{figure}[H] % image
+	\center{\includegraphics[width=1\linewidth]{svn_general}}
+	\caption{SVN version.}
+	\label{fig:svn_general}
+\end{figure}
+
+Turning back to the item's configuration in the SCM section let's select "Subversion", that because is the official SCM in Inflection Point and the mandatory fields are:
+\begin{itemize}
+	\item Repository URL
+	\item Credentials
+\end{itemize}
+You can see the figure \ref{fig:svn_item} for a better reference.
+
+\begin{figure}[H] % image
+	\center{\includegraphics[width=1\linewidth]{svn_item}}
+	\caption{SVN Item Configuration.}
+	\label{fig:svn_item}
+\end{figure}
+
+After the SCM configuration we also can set the parameters to trigger a poll for this SCM, what will happens is that every "X" time \ref{fig:svn_poll}, Jenkins will request for updates at SVN Server and if exists then will download them and start a new build with those changes.
+
+\begin{figure}[H] % image
+	\center{\includegraphics[width=1\linewidth]{svn_poll}}
+	\caption{SVN Poll Configuration every 15 minutes.}
+	\label{fig:svn_poll}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	.NET Proyect settings
+%----------------------------------------------------------------------------------------
+
+\section{.Net's Project Settings}
+
+\subsection{Setting .Net Frameworks} % Sub-section
+
+ Jenkins native support the configuration of "Items" developed with Java and Maven, but we can extend Jenkins to support the .Net Projects, hence we need installing MSBuild plug-in, which will increment the capabilities of our jenkins's instance and it be able to compile a .Net Project.
+ 
+In the "Manage Jenkins" menu, "Configure System", we should see a section where we can set up different versions of .Net Frameworks(see figure \ref{fig:msbuild_builder}), which means that we can have installed different versions of them and choose the version at use in each "Item".
+ 
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=.3\linewidth]{left_menu_manage_jenkins}}
+	{\includegraphics[width=.3\linewidth]{configure_system}}
+	\caption{Manage Jenkins Menu}
+	\label{fig:left_menu_manage_jenkins}
+\end{figure}
+
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=1\linewidth]{msbuild_builder}}
+	\caption{MSBuild Builder}
+	\label{fig:msbuild_builder}
+\end{figure}
+
+
+%------------------------------------------------
+
+\subsection{Setting .Net Framework in an Item} % Sub-section
+
+ When we're configuring an "item", let say a .Net item, we should add a build step to compile the project, hence need go over the "Add build step" menu(Figure \ref{fig:add_build_step_red}), and choose the option "Build a Visual Studio project or solution using MSBuild", after that we should be able to configure the MSBuild option, the most important is choose the correct .Net Framework which was configured on the previous section to use it as you seen on the Figure \ref{fig:build_vs}
+ 
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=.4\linewidth]{add_build_step_red}}
+	\caption{Add Build Step}
+	\label{fig:add_build_step_red}
+\end{figure}
+
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=1\linewidth]{build_vs}}
+	\caption{Build a Visual Studio project or solution using MSBuild}
+	\label{fig:build_vs}
+\end{figure}
+
+If we take a look and realize into the Figure \ref{fig:build_vs} we can discovery the "Command Line Arguments" and see that it has a value, the value showed in the figure can be split in two main commands.
+
+\begin{itemize}
+	\item \textit{/property:Configuration=Release} This command say to compiler which target should use to execute the compilation.
+	\item \textit{/p:RunCodeAnalysis=true} This will trigger "Run Code Analysis on Solution", then we can say that this command has the same effect to do a Click on the "Run Code Analysis on Solution" from the Visual Studio IDE, and either the command or the click from the IDE will generate a FXCop Report Style, which could be consumed later from the violations Report.
+\end{itemize}
+
+\subsection{Scripts} % Sub-section
+
+Jenkins give us the facility to integrate scripts, either Shell script or Batch Script and both can be run over Windows OS, Linux, MacOS and others.
+
+Then you can write your custom script and even use either global or local environment variables, just need remain  use the correct syntaxes for each kind of scripting, the Figure \ref{fig:script_space} show a simple example of each scripting language.
+
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=1\linewidth]{script_space}}
+	\caption{Shell and Batch Scripts}
+	\label{fig:script_space}
+\end{figure}
+ 
+ \subsection{Sonar standalone for .Net Projects} % Sub-section
+
+We are assuming that Sonar's instance is up \& running, hence we should have a mechanism to send the metrics to our Sonar's instance. Maven has a plug-in to analyse the Java's projects, but sonar's project also provide a tool to run the analysis code in standalone mode.
+
+The snippet \ref{list.sonar_standalone} show us the properties to set when we would like use sonar standalone for C\#.
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\scriptsize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=bash,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=5,                       % sets default tabsize to 2 spaces
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  caption=Sonar Standalone properties,
+  label=list.sonar_standalone
+}
+
+\begin{lstlisting}[frame=single]  % Start your code-block
+
+sonar.projectKey=<Unique Name>
+sonar.projectVersion=1.0-SNAPSHOT
+sonar.projectName=<Project's Name>
+sonar.dotnet.buildConfiguration=<.NET Related as Release|Debug|Anything else>
+sonar.dotnet.buildPlatform=<AnyCPU>
+sonar.dotnet.visualstudio.testProjectPattern=*.Tests;*.UnitTests
+ 
+# Info required for SonarQube
+sonar.language=cs
+sonar.dotnet.visualstudio.solution.file=<Either relative or absolute path of a .sln>
+sonar.sources=.
+\end{lstlisting}
+
+Hence once we added the "Invoke Standalone Sonar Analysis" from the "Add Build Step" we should be able to see the step the figure \ref{fig:sonar_standalone_net} show us.
+
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=1\linewidth]{sonar_standalone_net}}
+	\caption{Invoke Standalone Sonar Analysis for C\#}
+	\label{fig:sonar_standalone_net}
+\end{figure}
+
+ \subsection{Post Build for .Net} % Sub-section
+ 
+When the builds steps gone fine, then we can execute different tasks, such read the reports generated by the build process and show friendly using the Violation's Report plug-in, this report could include the whole stuff created as FXCop, Unit Test, Coverage and so on (see Figure \ref{fig:voilations}).
+
+An other common task in this section is send emails to all the people involved in this project.
+
+ \begin{figure}[H] % image
+ 	\center
+	{\includegraphics[width=1\linewidth]{voilations}}
+	\caption{Violations for .Net - C\#}
+	\label{fig:voilations}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	MAJOR SECTION JAVA Settings
+%----------------------------------------------------------------------------------------
+\newpage
+\section{JAVA Project serttings}
+
+\subsection{Subsection 1} % Sub-section
+
+ Content
+
+%------------------------------------------------
+
+%\subsection{Subsection 2} % Sub-section
+
+% Content
+
+%----------------------------------------------------------------------------------------
+%	MAJOR SECTION X - TEMPLATE - UNCOMMENT AND FILL IN
+%----------------------------------------------------------------------------------------
+
+%\section{Content Section}
+
+%\subsection{Subsection 1} % Sub-section
+
+% Content
+
+%------------------------------------------------
+
+%\subsection{Subsection 2} % Sub-section
+
+% Content
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+
+%\section{Conclusion} % Major section
+
+%\lipsum[12-13]
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+%\bibitem[Janssen]{janssen}
+%Cory Janssen
+
+%\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
+%Figueredo, A.~J. and Wolf, P. S.~A. (2009).
+%\newblock Assortative pairing and life history strategy - a cross-cultural
+%  study.
+%\newblock {\em Human Nature}, 20:317--330.
+ 
+%\end{thebibliography}
+
+%\bibliographystyle{apacite}
+%\bibliography{mylib}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	MAJOR SECTION 1
+%----------------------------------------------------------------------------------------
+%
+%\section{Content Section} % Major section
+%
+%\lipsum[5] % Dummy text
+
+%------------------------------------------------
+
+%\subsection{Subsection 1} % Sub-section
+
+%\subsubsection{Subsubsection 1} % Sub-sub-section
+
+%\lipsum[6] % Dummy text
+
+%------------------------------------------------
+
+%\subsubsection{Subsubsection 2} % Sub-sub-section
+
+%\lipsum[6] % Dummy text
+%\begin{wrapfigure}{l}{0.4\textwidth} % Inline image example
+%  \begin{center}
+%    \includegraphics[width=0.38\textwidth]{fish}
+%  \end{center}
+%  \caption{Fish}
+%\end{wrapfigure}
+%\lipsum[7-8] % Dummy text
+
+%------------------------------------------------
+
+%\subsubsection{Subsubsection 3} % Sub-sub-section
+
+%\begin{description} % Numbered list example
+
+%\item[First] \hfill \\
+%\lipsum[9] % Dummy text
+
+%\item[Second] \hfill \\
+%\lipsum[10] % Dummy text
+
+%\item[Third] \hfill \\
+%\lipsum[11] % Dummy text
+
+%\end{description} 
