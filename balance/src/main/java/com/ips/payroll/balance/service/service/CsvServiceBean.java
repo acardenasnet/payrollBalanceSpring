@@ -9,11 +9,11 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
-import com.ips.payroll.balance.converter.BeanToCsv;
 import com.ips.payroll.balance.converter.ReportItemToCsv;
 import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.ReportItem;
@@ -30,6 +30,9 @@ public class CsvServiceBean
     private static final Logger LOG = LoggerFactory.getLogger(CsvServiceBean.class);
     private ByteArrayOutputStream outputStream;
     private CSVWriter writer;
+    
+    @Autowired
+    private ReportItemToCsv reportItemToCsv;
 
     @PostConstruct
     public void init()
@@ -37,6 +40,7 @@ public class CsvServiceBean
         LOG.debug("Calling init");
         outputStream = new ByteArrayOutputStream();
         writer = new CSVWriter(new PrintWriter(outputStream));
+        reportItemToCsv = new ReportItemToCsv(true, false);
     }
 
     public CSVWriter getWriter()
@@ -46,7 +50,7 @@ public class CsvServiceBean
 
     public void setWriter(CSVWriter aWriter)
     {
-        this.writer = aWriter;
+        writer = aWriter;
     }
 
     /**
@@ -59,12 +63,11 @@ public class CsvServiceBean
         {
             clean();
 
-            BeanToCsv myBeanToCsv = new ReportItemToCsv(true, false);
             for (ReportItem myReportItem : aBeans)
             {
                 if (myReportItem != null)
                 {
-                    myBeanToCsv.writeBean(writer, myReportItem);
+                    reportItemToCsv.writeBean(writer, myReportItem);
                 }
             }
         }
@@ -79,6 +82,7 @@ public class CsvServiceBean
 
     private void clean() throws IOException
     {
+        LOG.debug("Close {}", writer);
         writer.close();
         outputStream = new ByteArrayOutputStream();
         writer = new CSVWriter(new PrintWriter(outputStream));

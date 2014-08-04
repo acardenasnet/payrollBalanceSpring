@@ -1,14 +1,21 @@
 package com.ips.payroll.balance.service.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import au.com.bytecode.opencsv.CSVWriter;
+
+import com.ips.payroll.balance.converter.ReportItemToCsv;
+import com.ips.payroll.balance.exceptions.PayrollException;
 import com.ips.payroll.balance.model.ReportItem;
 import com.ips.payroll.balance.service.api.CsvService;
 
@@ -18,11 +25,18 @@ public class CsvServiceBeanTest
     
     private CsvService<ReportItem> csvService;
     
+    @Mock
+    private CSVWriter mockCSVWriter;
+    
+    @Mock
+    private ReportItemToCsv reportItemToCsv;
+    
     @Before
     public void setup()
     {
         CsvServiceBean myCsvServiceBean =  new  CsvServiceBean();
         myCsvServiceBean.init();
+        myCsvServiceBean.setWriter(mockCSVWriter);
         csvService = myCsvServiceBean;
         MockitoAnnotations.initMocks(this);
     }
@@ -32,7 +46,7 @@ public class CsvServiceBeanTest
     {
         csvService.convertToCsv(new ArrayList<ReportItem>());
     }
-    
+        
     @Test
     public void simpleDataTest() throws Exception
     {
@@ -70,5 +84,14 @@ public class CsvServiceBeanTest
         
         Assert.assertEquals(outputExpected, new String(myBytes));
         
+    }
+    
+    @Test(expected = PayrollException.class)
+    public void simpleExceptionTest() throws Exception
+    {
+        Mockito.doThrow(new IOException())
+            .when(mockCSVWriter).close();
+        ((CsvServiceBean) csvService).setWriter(mockCSVWriter);
+        csvService.convertToCsv(new ArrayList<ReportItem>());
     }
 }

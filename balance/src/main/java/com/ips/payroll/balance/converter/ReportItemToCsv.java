@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -25,6 +26,7 @@ import com.ips.payroll.balance.model.enums.HorasExtrasType;
 import com.ips.payroll.balance.model.enums.IncapacidadType;
 import com.ips.payroll.balance.model.enums.PercepcionType;
 
+@Service
 public class ReportItemToCsv
         extends BeanToCsv
 {
