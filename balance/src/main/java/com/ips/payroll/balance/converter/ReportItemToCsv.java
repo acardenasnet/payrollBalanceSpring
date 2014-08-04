@@ -32,6 +32,11 @@ public class ReportItemToCsv
 {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReportItemToCsv.class);
+    
+    public ReportItemToCsv()
+    {
+        this(true, false);
+    }
 
     public ReportItemToCsv(boolean writeHeaders, boolean writeDeprecated)
     {
